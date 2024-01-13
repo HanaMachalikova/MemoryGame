@@ -72,12 +72,12 @@ public class SingleController {
 
     @FXML
     void go_home(ActionEvent event) throws IOException {
-        Game.newWindow(event, "Home.fxml", "Home");
+        showWindow(event, "Home.fxml", "Home");
     }
 
     @FXML
     void go_back(ActionEvent event) throws IOException {
-        Game.newWindow(event, "NewGame.fxml", "New Game");
+        showWindow(event, "NewGame.fxml", "New Game");
     }
 
     @FXML
@@ -142,6 +142,18 @@ public class SingleController {
         coordinateX = (int) ((Math.random() * pane.getWidth() + 1));
         coordinateY = (int) ((Math.random() * pane.getHeight() + 1));
 
+    }
+
+    void showWindow(ActionEvent event, String resource, String title) throws IOException {
+        Node source = (Node)  event.getSource();
+        Stage primarystage  = (Stage) source.getScene().getWindow();
+        primarystage.close();
+        FXMLLoader fxmlLoader = new FXMLLoader(MemoryGame.class.getResource(resource));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle(title);
+        stage.setScene(scene);
+        stage.show();
     }
 
 

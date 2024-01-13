@@ -33,7 +33,7 @@ public class HomeController {
 
     @FXML
     void single_game(ActionEvent event) throws IOException {
-        Game.newWindow(event, "Single.fxml", "Single game");
+        new_game(event);
     }
 
 
@@ -44,7 +44,15 @@ public class HomeController {
 
     @FXML
     void new_game(ActionEvent event) throws IOException {
-        Game.newWindow(event, "NewGame.xml", "New game");
+        Node source = (Node)  event.getSource();
+        Stage primarystage  = (Stage) source.getScene().getWindow();
+        primarystage.close();
+        FXMLLoader fxmlLoader = new FXMLLoader(MemoryGame.class.getResource("NewGame.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("New game");
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="292.0" prefWidth="442.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.memorygame.SecondController">
+   <children>
+      <Label fx:id="second_text" layoutX="102.0" layoutY="39.0" prefHeight="30.0" prefWidth="239.0" text="You are the second player">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="text_enter" layoutX="93.0" layoutY="83.0" text="Please enter your game code">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="code_field" layoutX="152.0" layoutY="155.0" prefHeight="46.0" prefWidth="139.0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </TextField>
+      <Label fx:id="invalid1" layoutX="117.0" layoutY="82.0" text="Your code is not valid" visible="false">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="invalid2" layoutX="110.0" layoutY="115.0" text="Please enter a new one" visible="false">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="send" layoutX="195.0" layoutY="222.0" mnemonicParsing="false" onAction="#send" text="Send">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="back" layoutX="368.0" layoutY="249.0" mnemonicParsing="false" onAction="#back" text="Back">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
