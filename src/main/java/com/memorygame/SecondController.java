@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class SecondController {
 
@@ -47,9 +48,12 @@ public class SecondController {
     @FXML
     void send(ActionEvent event) {
         String code = code_field.getText();
+        System.out.println(code);
+        System.out.println(Integer.valueOf(code));
         try{
             serverSocket = new ServerSocket(Integer.valueOf(code));
-            client();
+            Vlakno v = new Vlakno("client", code, 0);
+            v.start();
         } catch (IOException e) {
             text_enter.setVisible(false);
             invalid1.setVisible(true);
@@ -59,45 +63,53 @@ public class SecondController {
 
     }
 
-    void client() {
+    void client(String portNumber) {
         Socket socket = null;
         InputStreamReader inputStreamReader = null;
         OutputStreamWriter outputStreamWriter = null;
         BufferedReader bufferedReader = null;
         BufferedWriter bufferedWriter = null;
 
-        while (true) {
+        try {
+            socket = new Socket("localhost", Integer.valueOf(portNumber));
+            inputStreamReader = new InputStreamReader(socket.getInputStream());
+            outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
+
+            bufferedReader = new BufferedReader(inputStreamReader);
+            bufferedWriter = new BufferedWriter(outputStreamWriter);
+
+            Scanner sc = new Scanner(System.in);
+
+            while (true) {
+                String msgToSend = sc.nextLine();
+                bufferedWriter.write(msgToSend);
+                bufferedWriter.newLine();
+                bufferedWriter.flush();
+
+                System.out.println("Server: " + bufferedReader.readLine());
+
+                if(msgToSend.equalsIgnoreCase("BYE"))
+                    break;
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
             try {
-                socket = serverSocket.accept();
-
-                inputStreamReader = new InputStreamReader(socket.getInputStream());
-                outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
-
-                bufferedReader = new BufferedReader(inputStreamReader);
-                bufferedWriter = new BufferedWriter(outputStreamWriter);
-
-                while (true) {
-                    String msgFromClient = bufferedReader.readLine();
-                    System.out.println("Client: " + msgFromClient);
-
-                    bufferedWriter.write("MSG recieved");
-                    bufferedWriter.newLine();
-                    bufferedWriter.flush();
-
-                    if (msgFromClient.equalsIgnoreCase("BYE")) {
-                        break;
-                    }
-
-                }
-
-                socket.close();
-                inputStreamReader.close();
-                outputStreamWriter.close();
-                bufferedReader.close();
-                bufferedWriter.close();
-            } catch (IOException e) {
+                if (socket != null)
+                    socket.close();
+                if (inputStreamReader != null)
+                    inputStreamReader.close();
+                if (outputStreamWriter != null)
+                    outputStreamWriter.close();
+                if (bufferedReader != null)
+                    bufferedReader.close();
+                if (bufferedWriter != null)
+                    bufferedWriter.close();
+            } catch (IOException e){
                 e.printStackTrace();
             }
+
         }
 
     }
