@@ -27,16 +27,6 @@ public class HomeController {
     @FXML
     private Button new_game;
 
-
-    @FXML
-    private Button singleGame;
-
-    @FXML
-    void single_game(ActionEvent event) throws IOException {
-        new_game(event);
-    }
-
-
     @FXML
     void how_to_play(ActionEvent event) {
 

@@ -52,7 +52,7 @@ public class SecondController {
         System.out.println(Integer.valueOf(code));
         try{
             serverSocket = new ServerSocket(Integer.valueOf(code));
-            Vlakno v = new Vlakno("client", code, 0);
+            Vlakno v = new Vlakno("client", 0, code);
             v.start();
         } catch (IOException e) {
             text_enter.setVisible(false);
@@ -86,7 +86,7 @@ public class SecondController {
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
 
-                System.out.println("Server: " + bufferedReader.readLine());
+                System.out.println("Klient: " + bufferedReader.readLine());
 
                 if(msgToSend.equalsIgnoreCase("BYE"))
                     break;
