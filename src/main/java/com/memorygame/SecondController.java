@@ -17,8 +17,6 @@ import java.util.Scanner;
 
 public class SecondController {
 
-    private ServerSocket serverSocket = null;
-
     @FXML
     private Button back;
 

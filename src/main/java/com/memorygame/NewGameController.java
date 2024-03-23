@@ -34,14 +34,13 @@ public class NewGameController {
 
     @FXML
     void multi_game(ActionEvent event) throws IOException {
-        showWindow(event, "Connection.fxml", "Conection");
+        showWindow(event, "Connection.fxml", "Connection");
 
     }
 
     @FXML
     void single_game(ActionEvent event) throws IOException {
-        showWindow(event, "Single.fxml", "Single game");
-
+        showWindow(event, "Multi.fxml", "Single game");
     }
 
     @FXML
@@ -51,8 +50,8 @@ public class NewGameController {
 
     void showWindow(ActionEvent event, String resource, String title) throws IOException {
         Node source = (Node)  event.getSource();
-        Stage primarystage  = (Stage) source.getScene().getWindow();
-        primarystage.close();
+        Stage primaryStage  = (Stage) source.getScene().getWindow();
+        primaryStage.close();
         FXMLLoader fxmlLoader = new FXMLLoader(MemoryGame.class.getResource(resource));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
