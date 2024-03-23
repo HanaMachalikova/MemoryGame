@@ -12,6 +12,7 @@ public class Client {
         BufferedReader bufferedReader = null;
         BufferedWriter bufferedWriter = null;
 
+
         try {
             socket = new Socket("localhost", Integer.valueOf(portNumber));
             inputStreamReader = new InputStreamReader(socket.getInputStream());

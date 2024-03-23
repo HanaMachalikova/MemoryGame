@@ -50,16 +50,16 @@ public class SecondController {
         String code = code_field.getText();
         System.out.println(code);
         System.out.println(Integer.valueOf(code));
-        try{
-            serverSocket = new ServerSocket(Integer.valueOf(code));
+        //try{
+        //    serverSocket = new ServerSocket(Integer.valueOf(code));
             Vlakno v = new Vlakno("client", code, 0);
             v.start();
-        } catch (IOException e) {
+        /*} catch (IOException e) {
             text_enter.setVisible(false);
             invalid1.setVisible(true);
             invalid2.setVisible(true);
             code_field.setText("");
-        }
+        }*/
 
     }
 

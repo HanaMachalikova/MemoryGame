@@ -13,6 +13,7 @@ public class Server {
         BufferedWriter bufferedWriter = null;
 
         ServerSocket serverSocket = new ServerSocket(portNumber);
+
         System.out.println("Server is ready");
 
 

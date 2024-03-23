@@ -15,10 +15,14 @@ public class Vlakno extends  Thread{
     }
 
     public void run() {
-        try {
+
             switch (role) {
                 case "server":
-                    se(sport);
+                    try {
+                        se(sport);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 case "client":
@@ -27,9 +31,6 @@ public class Vlakno extends  Thread{
 
                     break;
             }
-        }catch (IOException e) {
-            System.out.println("Chyba");
-        }
     }
     public void se (int port) throws IOException{
         Server s = new Server();
