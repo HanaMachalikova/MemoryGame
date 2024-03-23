@@ -45,7 +45,7 @@ public class FirstController {
         portNumber = (int) ((Math.random() * 2000) + 1024);
         text_code.setVisible(true);
         code.setText(Integer.toString(portNumber));
-        Vlakno v = new Vlakno("server", portNumber, "");
+        Vlakno v = new Vlakno("server", "0000", portNumber);
         v.start();
     }
 
@@ -70,7 +70,7 @@ public class FirstController {
 
                 while (true) {
                     String msgFromClient = bufferedReader.readLine();
-                    System.out.println("Klient: " + msgFromClient);
+                    System.out.println("Client: " + msgFromClient);
 
                     bufferedWriter.write("MSG recieved");
                     bufferedWriter.newLine();

@@ -5,10 +5,10 @@ import java.io.IOException;
 public class Vlakno extends  Thread{
 
     String role;
-    int cport;
-    String sport;
+    String cport;
+    int sport;
 
-    public Vlakno(String role, int cport, String sport) {
+    public Vlakno(String role, String cport, int sport) {
         this.role = role;
         this.cport = cport;
         this.sport = sport;
@@ -17,24 +17,27 @@ public class Vlakno extends  Thread{
     public void run() {
         try {
             switch (role) {
-                case "client":
-                    cl(cport);
-                    break;
                 case "server":
-                        se(sport);
+                    se(sport);
+                    break;
+
+                case "client":
+                    System.out.println("Client");
+                    cl(cport);
+
                     break;
             }
         }catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Chyba");
         }
     }
-    public void se (String port) {
+    public void se (int port) throws IOException{
         Server s = new Server();
         s.server(port);
     }
 
-    public void cl (int port) throws IOException {
-        Klient c = new Klient();
+    public void cl (String port)  {
+        Client c = new Client();
         c.client(port);
     }
 }
