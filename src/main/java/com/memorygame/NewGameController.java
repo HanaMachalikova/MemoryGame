@@ -40,7 +40,7 @@ public class NewGameController {
 
     @FXML
     void single_game(ActionEvent event) throws IOException {
-        showWindow(event, "Multi.fxml", "Single game");
+        showWindow(event, "Single.fxml", "Single game");
     }
 
     @FXML

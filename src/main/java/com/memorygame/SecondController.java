@@ -38,6 +38,8 @@ public class SecondController {
     @FXML
     private Label text_enter;
 
+    boolean ready = false;
+
     @FXML
     void back(ActionEvent event) throws IOException {
         showWindow(event, "Connection.fxml", "Connection");
@@ -50,7 +52,7 @@ public class SecondController {
         System.out.println(Integer.valueOf(code));
         //try{
         //    serverSocket = new ServerSocket(Integer.valueOf(code));
-            Vlakno v = new Vlakno("client", code, 0);
+            Vlakno v = new Vlakno("client", code, 0, ready);
             v.start();
         /*} catch (IOException e) {
             text_enter.setVisible(false);

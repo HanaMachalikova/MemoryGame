@@ -23,6 +23,10 @@ public class Client {
 
             Scanner sc = new Scanner(System.in);
             System.out.println("Client is ready");
+            String ready = "ready";
+            bufferedWriter.write(ready);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
 
             while (true) {
                 String msgToSend = sc.nextLine();

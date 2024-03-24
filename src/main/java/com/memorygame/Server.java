@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
+    Boolean ready = false;
     void server(int portNumber) throws IOException {
         Socket socket = null;
         InputStreamReader inputStreamReader = null;
@@ -29,6 +30,9 @@ public class Server {
 
                 while (true) {
                     String msgFromClient = bufferedReader.readLine();
+                    if(msgFromClient.equalsIgnoreCase("ready")) {
+                        ready = true;
+                    }
                     System.out.println("Client: " + msgFromClient);
 
                     bufferedWriter.write("MSG recieved");

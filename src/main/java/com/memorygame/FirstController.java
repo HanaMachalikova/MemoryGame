@@ -33,6 +33,8 @@ public class FirstController {
     @FXML
     private Button generator;
 
+    boolean ready = false;
+
     @FXML
     void back(ActionEvent event) throws IOException {
         showWindow(event, "Connection.fxml", "Connection");
@@ -40,16 +42,56 @@ public class FirstController {
     }
 
     @FXML
-    void generate(ActionEvent event) throws IOException {
+    void generate(ActionEvent event) throws IOException, InterruptedException {
         generator.setVisible(false);
         portNumber = (int) ((Math.random() * 2000) + 1024);
         text_code.setVisible(true);
         code.setText(Integer.toString(portNumber));
-        Vlakno v = new Vlakno("server", "0000", portNumber);
+        /*Thread h = new Thread(() -> {
+            if (prepared() == true) {
+                try {
+                    showWindow(event, "Multi.fxml", "Miltiplayer player one");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });*/
+        Vlakno v = new Vlakno("server", "0000", portNumber, ready);
         v.start();
+        /*Thread h = new Thread(() -> {
+            while (true) {
+                if(v.ready == true) {
+                    System.out.println("ready");;
+                }
+            }*/
+            //if (prepared(v) == true) {
+                //try {
+                    //System.out.println("ready");
+                    //showWindow(event, "Multi.fxml", "Miltiplayer player one");
+                /*} catch (IOException e) {
+                    throw new RuntimeException(e);
+                }*/
+            //}
+        //});
+        //Thread.sleep(500);
+        /*while (true){
+            if (v.ready == true) {
+                showWindow(event, "Multi.fxml", "Multiplayer");
+                break;
+            }
+            Thread.sleep(1);
+        }*/
     }
 
-    void server() throws IOException {
+    /*boolean prepared (Thread t) {
+        while (true) {
+            if(t.ready == true) {
+                return true;
+            }
+        }
+    }*/
+
+    public void server (int portNumber) throws IOException{
         Socket socket = null;
         InputStreamReader inputStreamReader = null;
         OutputStreamWriter outputStreamWriter = null;
@@ -57,6 +99,9 @@ public class FirstController {
         BufferedWriter bufferedWriter = null;
 
         ServerSocket serverSocket = new ServerSocket(portNumber);
+
+        System.out.println("Server is ready");
+
 
         while (true) {
             try {
@@ -70,6 +115,9 @@ public class FirstController {
 
                 while (true) {
                     String msgFromClient = bufferedReader.readLine();
+                    if(msgFromClient.equalsIgnoreCase("ready")) {
+                        ready = true;
+                    }
                     System.out.println("Client: " + msgFromClient);
 
                     bufferedWriter.write("MSG recieved");
