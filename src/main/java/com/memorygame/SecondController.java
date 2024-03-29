@@ -11,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -46,14 +45,18 @@ public class SecondController {
     }
 
     @FXML
-    void send(ActionEvent event) {
+    void send(ActionEvent event) throws IOException, InterruptedException {
         String code = code_field.getText();
         System.out.println(code);
         System.out.println(Integer.valueOf(code));
         //try{
         //    serverSocket = new ServerSocket(Integer.valueOf(code));
-            Vlakno v = new Vlakno("client", code, 0, ready);
-            v.start();
+        ServerThread s = new ServerThread("client", code, 0, ready, event);
+        s.start();
+        /*Thread.sleep(10000);
+        System.out.println(s.ready);
+        /*ReadyThread r = new ReadyThread(event, s);
+        r.start();
         /*} catch (IOException e) {
             text_enter.setVisible(false);
             invalid1.setVisible(true);

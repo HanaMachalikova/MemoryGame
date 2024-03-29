@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class FirstController {
 
@@ -50,14 +49,20 @@ public class FirstController {
         /*Thread h = new Thread(() -> {
             if (prepared() == true) {
                 try {
-                    showWindow(event, "Multi.fxml", "Miltiplayer player one");
+                    showWindow(event, "Multi.fxml", "Multiplayer player one");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
         });*/
-        Vlakno v = new Vlakno("server", "0000", portNumber, ready);
-        v.start();
+        System.out.println(portNumber);
+        ServerThread s = new ServerThread("server", "0000", portNumber, ready, event);
+        s.start();
+        System.out.println(portNumber);
+        Thread.sleep(10000);
+        System.out.println("got the info:" + s.ready);
+        /*ReadyThread r = new ReadyThread(event, s);
+        r.start();
         /*Thread h = new Thread(() -> {
             while (true) {
                 if(v.ready == true) {
@@ -67,7 +72,7 @@ public class FirstController {
             //if (prepared(v) == true) {
                 //try {
                     //System.out.println("ready");
-                    //showWindow(event, "Multi.fxml", "Miltiplayer player one");
+                    //showWindow(event, "Multi.fxml", "Multiplayer player one");
                 /*} catch (IOException e) {
                     throw new RuntimeException(e);
                 }*/

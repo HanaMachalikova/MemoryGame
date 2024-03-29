@@ -1,18 +1,22 @@
 package com.memorygame;
 
+import javafx.event.ActionEvent;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Vlakno extends  Thread{
+public class ServerThread extends  Thread{
 
     String role;
     String cport;
     int sport;
     Boolean ready;
 
-    public Vlakno(String role, String cport, int sport, boolean ready) {
+    ActionEvent event;
+
+    public ServerThread(String role, String cport, int sport, boolean ready, ActionEvent event) {
         this.role = role;
         this.cport = cport;
         this.sport = sport;
@@ -62,8 +66,10 @@ public class Vlakno extends  Thread{
                     String msgFromClient = bufferedReader.readLine();
                     if(msgFromClient.equalsIgnoreCase("ready")) {
                         ready = true;
-                        System.out.println("ready to play");
+                        OpenWindow ow = new OpenWindow(event, "Multi.fxml", "Multiplayer");
+                        ow.showWindow();
                     }
+                    System.out.println("ready: " + ready);
                     System.out.println("Client: " + msgFromClient);
 
                     bufferedWriter.write("MSG recieved");
@@ -109,6 +115,8 @@ public class Vlakno extends  Thread{
             bufferedWriter.write(r);
             bufferedWriter.newLine();
             bufferedWriter.flush();
+            OpenWindow ow = new OpenWindow(event, "Multi.fxml", "Multiplayer");
+            ow.showWindow();
 
             while (true) {
                 String msgToSend = sc.nextLine();

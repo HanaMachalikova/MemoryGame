@@ -34,18 +34,23 @@ public class NewGameController {
 
     @FXML
     void multi_game(ActionEvent event) throws IOException {
-        showWindow(event, "Connection.fxml", "Connection");
+        OpenWindow ow = new OpenWindow(event, "Connection.fxml", "Connection");
+        ow.showWindow();
 
     }
 
     @FXML
     void single_game(ActionEvent event) throws IOException {
-        showWindow(event, "Single.fxml", "Single game");
+        OpenWindow ow = new OpenWindow(event, "Single.fxml", "Single game");
+        ow.showWindow();
+        //showWindow(event, "Single.fxml", "Single game");
     }
 
     @FXML
     void back(ActionEvent event) throws IOException {
-        showWindow(event, "Home.fxml", "Home");
+        OpenWindow ow = new OpenWindow(event, "Home.fxml", "Home");
+        ow.showWindow();
+
     }
 
     void showWindow(ActionEvent event, String resource, String title) throws IOException {
