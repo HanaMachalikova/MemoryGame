@@ -21,6 +21,7 @@ public class ServerThread extends  Thread{
         this.cport = cport;
         this.sport = sport;
         this.ready = ready;
+        this.event = event;
     }
 
     public void run() {

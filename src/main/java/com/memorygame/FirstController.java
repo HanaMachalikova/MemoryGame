@@ -57,10 +57,10 @@ public class FirstController {
         });*/
         System.out.println(portNumber);
         ServerThread s = new ServerThread("server", "0000", portNumber, ready, event);
-        s.start();
+        //s.start();
         System.out.println(portNumber);
-        Thread.sleep(10000);
-        System.out.println("got the info:" + s.ready);
+        /*OpenWindow ow = new OpenWindow(event, "Multi.fxml", "Multiplayer");
+        ow.showWindow();
         /*ReadyThread r = new ReadyThread(event, s);
         r.start();
         /*Thread h = new Thread(() -> {

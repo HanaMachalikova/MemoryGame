@@ -1,5 +1,6 @@
 package com.memorygame;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -21,14 +22,21 @@ public class OpenWindow {
     }
 
     void showWindow() throws IOException {
-        Node source = (Node)  event.getSource();
-        Stage primarystage  = (Stage) source.getScene().getWindow();
-        primarystage.close();
-        FXMLLoader fxmlLoader = new FXMLLoader(MemoryGame.class.getResource(resource));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-        stage.setTitle(title);
-        stage.setScene(scene);
-        stage.show();
+        Platform.runLater(() -> {
+            Node source = (Node) event.getSource();
+            Stage primarystage = (Stage) source.getScene().getWindow();
+            primarystage.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(MemoryGame.class.getResource(resource));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Stage stage = new Stage();
+            stage.setTitle(title);
+            stage.setScene(scene);
+            stage.show();
+        });
     }
 }
