@@ -12,16 +12,37 @@ public class ServerThread extends  Thread{
     String role;
     String cport;
     int sport;
-    Boolean ready;
+    boolean ready;
 
     ActionEvent event;
 
-    public ServerThread(String role, String cport, int sport, boolean ready, ActionEvent event) {
+    boolean first;
+
+    public String msgFromClient = "";
+
+    public String msgFromServer = "";
+
+    public ServerThread(String role, String cport, int sport, ActionEvent event) {
         this.role = role;
         this.cport = cport;
         this.sport = sport;
-        this.ready = ready;
         this.event = event;
+    }
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public void setFirst(boolean first) {
+        this.first = first;
+    }
+
+    public void setmsgFromClient(String msgFromClient) {
+        this.msgFromClient = msgFromClient;
+    }
+
+    public void setMsgFromServer(String msgFromServer) {
+        this.msgFromServer = msgFromServer;
     }
 
     public void run() {
@@ -64,20 +85,21 @@ public class ServerThread extends  Thread{
                 bufferedWriter = new BufferedWriter(outputStreamWriter);
 
                 while (true) {
-                    String msgFromClient = bufferedReader.readLine();
-                    if(msgFromClient.equalsIgnoreCase("ready")) {
+                    String msgClient = bufferedReader.readLine();
+                    if(msgClient.equalsIgnoreCase("ready")) {
                         ready = true;
                         OpenWindow ow = new OpenWindow(event, "Multi.fxml", "Multiplayer");
                         ow.showWindow();
                     }
                     System.out.println("ready: " + ready);
-                    System.out.println("Client: " + msgFromClient);
-
-                    bufferedWriter.write("MSG recieved");
+                    System.out.println("Client: " + msgClient);
+                    String[] failed = msgClient.split(";");
+                    if(failed[0].equals("f"))
+                    bufferedWriter.write(msgFromServer);
                     bufferedWriter.newLine();
                     bufferedWriter.flush();
 
-                    if (msgFromClient.equalsIgnoreCase("BYE")) {
+                    if (msgClient.equalsIgnoreCase("BYE")) {
                         break;
                     }
 
@@ -120,16 +142,18 @@ public class ServerThread extends  Thread{
             ow.showWindow();
 
             while (true) {
-                String msgToSend = sc.nextLine();
-                bufferedWriter.write(msgToSend);
-                bufferedWriter.newLine();
-                bufferedWriter.flush();
+                if (!msgFromClient.isEmpty()) {
+                    String msgFromClient = sc.nextLine();
+                    bufferedWriter.write(msgFromClient);
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
 
-                System.out.println("Client: " + bufferedReader.readLine());
+                    System.out.println("Client: " + bufferedReader.readLine());
 
-                if(msgToSend.equalsIgnoreCase("BYE"))
-                    break;
-
+                    if (msgFromClient.equalsIgnoreCase("BYE"))
+                        break;
+                    msgFromClient = "";
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

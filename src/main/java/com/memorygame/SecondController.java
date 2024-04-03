@@ -51,8 +51,9 @@ public class SecondController {
         System.out.println(Integer.valueOf(code));
         //try{
         //    serverSocket = new ServerSocket(Integer.valueOf(code));
-        ServerThread s = new ServerThread("client", code, 0, ready, event);
+        ServerThread s = new ServerThread("client", code, 0, event);
         s.start();
+        s.first = false;
         /*Thread.sleep(10000);
         System.out.println(s.ready);
         /*ReadyThread r = new ReadyThread(event, s);

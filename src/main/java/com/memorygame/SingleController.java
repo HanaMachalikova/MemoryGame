@@ -64,10 +64,14 @@ public class SingleController {
     @FXML
     private Label time_number;
 
+    @FXML
+    private Label game_over;
+
     Start s;
 
     @FXML
     void new_game(ActionEvent event) {
+        game_over.setVisible(false);
         start.setVisible(true);
     }
 
@@ -83,7 +87,7 @@ public class SingleController {
 
     @FXML
     void start(ActionEvent event) throws InterruptedException {
-        s = new Start(start, pane, score_number, key);
+        s = new Start(start, pane, score_number, key, game_over);
         s.start(event);
         /*sc_number = 0;
         measuredTime = 0;

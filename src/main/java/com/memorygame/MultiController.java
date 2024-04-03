@@ -70,20 +70,32 @@ public class MultiController {
     private Label score_number;
 
     @FXML
+    private Label time_number;
+
+    @FXML
     private SplitPane splitPane;
 
-    Start s;
+    @FXML
+    private Label game_over;
+
+    @FXML
+    private Label level;
+
+    @FXML
+    private Label level_number;
+
+    MultiStart ms;
 
     @FXML
     void start(ActionEvent event) throws InterruptedException {
-        s = new Start(start, pane, score_number, key);
-        s.start(event);
+        ms = new MultiStart(start, pane, score_number, key, game_over, level_number);
+        ms.start(event);
 
     }
 
     @FXML
     public void typed_key(KeyEvent event) throws InterruptedException {
-        s.typed_key(event);
+        ms.typed_key(event);
     }
 
 

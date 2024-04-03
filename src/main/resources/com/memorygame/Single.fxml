@@ -38,15 +38,20 @@
         </ButtonBar>
         <Pane fx:id="pane" layoutX="23.0" layoutY="74.0" prefHeight="278.0" prefWidth="554.0">
             <children>
-                <Button fx:id="start" layoutX="258.0" layoutY="101.0" mnemonicParsing="false" onAction="#start" text="Start">
+                <Button fx:id="start" layoutX="250.0" layoutY="102.0" mnemonicParsing="false" onAction="#start" text="Start">
                     <font>
                         <Font size="16.0" />
                     </font>
                 </Button>
-            <TextField fx:id="textField" layoutX="64.0" layoutY="175.0" onKeyPressed="#typed_key" opacity="0.0" />
             <Label fx:id="key" alignment="CENTER" layoutX="88.0" layoutY="51.0" text="   " visible="false">
                <font>
                   <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textField" layoutX="64.0" layoutY="175.0" onKeyPressed="#typed_key" opacity="0.0" />
+            <Label fx:id="game_over" layoutX="227.0" layoutY="105.0" text="Game Over" visible="false">
+               <font>
+                  <Font size="20.0" />
                </font>
             </Label>
             </children>
