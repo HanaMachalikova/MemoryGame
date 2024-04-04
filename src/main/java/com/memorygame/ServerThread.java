@@ -29,11 +29,10 @@ public class ServerThread extends Thread {
         this.event = event;
     }
 
-    private Multiton multiton;
+    private MsgMultiton mm;
+    private ResultMultiton rm;
+    private ConSingleton cs;
 
-    public boolean isReady() {
-        return ready;
-    }
 
     public void setFirst(boolean first) {
         this.first = first;
@@ -87,7 +86,7 @@ public class ServerThread extends Thread {
                 bufferedReader = new BufferedReader(inputStreamReader);
                 bufferedWriter = new BufferedWriter(outputStreamWriter);
                 String msgClient;
-                while(true) {
+                while (true) {
                     msgClient = bufferedReader.readLine();
                     if (msgClient.equalsIgnoreCase("ready")) {
                         ready = true;
@@ -98,68 +97,66 @@ public class ServerThread extends Thread {
                 }
 
                 while (true) {
-                    multiton = Multiton.getInstance(String.valueOf(level), null);
-                    msgFromServer = multiton.getMessage();
                     System.out.println("started while(true) 1");
-                    System.out.println(msgFromServer.isEmpty());
-                    while(true) {
+                    while (true) {
+                        mm = MsgMultiton.getInstance(String.valueOf(level));
+                        msgFromServer = mm.getMessage();
                         if (!msgFromServer.isEmpty()) {
                             bufferedWriter.write(msgFromServer);
                             bufferedWriter.newLine();
                             bufferedWriter.flush();
                             System.out.println(msgFromServer);
-                            System.out.println("printed empty");
                             msgFromServer = "";
                             break;
                         }
                     }
+                    System.out.println("prepared to read");
                     while (true) {
                         msgClient = bufferedReader.readLine();
-                        if (!msgClient.isEmpty()) {
+                        if (!msgClient.isEmpty() && (msgClient != null)) {
                             System.out.println("Client" + msgClient);
                             break;
                         }
                     }
-                    MultiSController mc = new MultiSController();
-                    if (mc.getLvl() > 1) {
-                        String[] client = msgClient.split(";");
-                        mc.getNext_level().setVisible(true);
-                        if (mc.isFailed() && client[0].equals("f")) {
-                            mc.getY_lose().setVisible(true);
-                            mc.getYou().setText("failed");
-                            mc.getO_lose().setVisible(true);
-                            mc.getOpponent().setText("failed");
-                            mc.getResult().setText("You both failed!");
-                        } else if (mc.isFailed()) {
-                            mc.getY_lose().setVisible(true);
-                            mc.getYou().setText("failed");
-                            mc.getResult().setText("You failed!");
-                        } else if (client[0].equals("f")) {
-                            mc.getOpponent().setText("failed");
-                            mc.getO_lose().setVisible(true);
-                            if (mc.isFailed()) {
-                                mc.getResult().setText("You won!");
-                            }
-                        } else if (mc.getMeasuredTime() > Integer.getInteger(client[1])) {
-                            mc.getO_lose().setVisible(true);
-                            mc.getY_win().setVisible(true);
-                            mc.getOpponent().setText(client[1]);
-                            mc.getYou().setText(Long.toString(mc.getMeasuredTime()));
-                            mc.getResult().setText("You won!");
-                        } else if (mc.getMeasuredTime() < Integer.getInteger(client[1])) {
-                            mc.getO_win().setVisible(true);
-                            mc.getY_lose().setVisible(true);
-                            mc.getOpponent().setText(client[1]);
-                            mc.getYou().setText(Long.toString(mc.getMeasuredTime()));
-                            mc.getResult().setText("You lost!");
-                        } else if (mc.getMeasuredTime() == Integer.getInteger(client[1])) {
-                            mc.getO_win().setVisible(true);
-                            mc.getY_win().setVisible(true);
-                            mc.getOpponent().setText(client[1]);
-                            mc.getYou().setText(Long.toString(mc.getMeasuredTime()));
-                            mc.getResult().setText("It's a draw!");
+                    rm = ResultMultiton.getInstance(String.valueOf(level));
+                    String[] client = msgClient.split(";");
+                    cs.getNext_level().setVisible(true);
+                    if (rm.isFailed() && client[0].equals("f")) {
+                        cs.getY_lose().setVisible(true);
+                        cs.getYou().setText("failed");
+                        cs.getO_lose().setVisible(true);
+                        cs.getOpponent().setText("failed");
+                        cs.getResult().setText("You both failed!");
+                    } else if (rm.isFailed()) {
+                        cs.getY_lose().setVisible(true);
+                        cs.getYou().setText("failed");
+                        cs.getResult().setText("You failed!");
+                    } else if (client[0].equals("f")) {
+                        cs.getOpponent().setText("failed");
+                        cs.getO_lose().setVisible(true);
+                        if (rm.isFailed()) {
+                            cs.getResult().setText("You won!");
                         }
+                    } else if (rm.getTime() > Integer.getInteger(client[1])) {
+                        cs.getO_lose().setVisible(true);
+                        cs.getY_win().setVisible(true);
+                        cs.getOpponent().setText(client[1]);
+                        cs.getYou().setText(Long.toString(rm.getTime()));
+                        cs.getResult().setText("You won!");
+                    } else if (rm.getTime() < Integer.getInteger(client[1])) {
+                        cs.getO_win().setVisible(true);
+                        cs.getY_lose().setVisible(true);
+                        cs.getOpponent().setText(client[1]);
+                        cs.getYou().setText(Long.toString(rm.getTime()));
+                        cs.getResult().setText("You lost!");
+                    } else if (rm.getTime() == Integer.getInteger(client[1])) {
+                        cs.getO_win().setVisible(true);
+                        cs.getY_win().setVisible(true);
+                        cs.getOpponent().setText(client[1]);
+                        cs.getYou().setText(Long.toString(rm.getTime()));
+                        cs.getResult().setText("It's a draw!");
                     }
+
 
                     if (msgClient.equalsIgnoreCase("BYE")) {
                         break;
@@ -206,67 +203,67 @@ public class ServerThread extends Thread {
             String msgServer;
 
             while (level <= 5) {
-                multiton = Multiton.getInstance(String.valueOf(level), null);
-                msgFromClient = multiton.getMessage();
+
                 System.out.println("started while(true) 1");
-                System.out.println(msgFromClient.isEmpty());
 
                 while (true) {
+                    mm = MsgMultiton.getInstance(String.valueOf(level));
+                    msgFromClient = mm.getMessage();
                     if (!msgFromClient.isEmpty()) {
                         bufferedWriter.write(msgFromClient);
                         bufferedWriter.newLine();
                         bufferedWriter.flush();
                         System.out.println(msgFromClient);
-                        System.out.println("printed empty");
                         msgFromClient = "";
                         break;
                     }
                 }
+                System.out.println("prepared to read");
                 while (true) {
                     msgServer = bufferedReader.readLine();
-                    if (!msgServer.isEmpty()) {
-                        System.out.println("Server: " + msgServer);
+                    if (!msgServer.isEmpty() && (msgServer != null)) {
+                        System.out.println("Server" + msgServer);
                         break;
                     }
                 }
-                MultiSController mc = new MultiSController();
-                if (mc.getLvl() > 1) {
+                MultiSController rm = new MultiSController();
+                if (rm.getLvl() > 1) {
                     String[] server = msgServer.split(";");
-                    mc.getNext_level().setVisible(true);
-                    if (mc.isFailed() && server[0].equals("f")) {
-                        mc.getY_lose().setVisible(true);
-                        mc.getYou().setText("failed");
-                        mc.getO_lose().setVisible(true);
-                        mc.getOpponent().setText("failed");
-                        mc.getResult().setText("You both failed!");
-                    } else if (mc.isFailed()) {
-                        mc.getY_lose().setVisible(true);
-                        mc.getYou().setText("failed");
-                        mc.getResult().setText("You failed!");
+                    rm.getNext_level().setVisible(true);
+                    if (rm.isFailed() && server[0].equals("f")) {
+                        rm.getY_lose().setVisible(true);
+                        rm.getYou().setText("failed");
+                        rm.getO_lose().setVisible(true);
+                        rm.getOpponent().setText("failed");
+                        rm.getResult().setText("You both failed!");
+                    } else if (rm.isFailed()) {
+                        rm.getY_lose().setVisible(true);
+                        rm.getYou().setText("failed");
+                        rm.getResult().setText("You failed!");
                     } else if (server[0].equals("f")) {
-                        mc.getOpponent().setText("failed");
-                        mc.getO_lose().setVisible(true);
-                        if (mc.isFailed()) {
-                            mc.getResult().setText("You won!");
+                        rm.getOpponent().setText("failed");
+                        rm.getO_lose().setVisible(true);
+                        if (rm.isFailed()) {
+                            rm.getResult().setText("You won!");
                         }
-                    } else if (mc.getMeasuredTime() > Integer.getInteger(server[1])) {
-                        mc.getO_lose().setVisible(true);
-                        mc.getY_win().setVisible(true);
-                        mc.getOpponent().setText(server[1]);
-                        mc.getYou().setText(Long.toString(mc.getMeasuredTime()));
-                        mc.getResult().setText("You won!");
-                    } else if (mc.getMeasuredTime() < Integer.getInteger(server[1])) {
-                        mc.getO_win().setVisible(true);
-                        mc.getY_lose().setVisible(true);
-                        mc.getOpponent().setText(server[1]);
-                        mc.getYou().setText(Long.toString(mc.getMeasuredTime()));
-                        mc.getResult().setText("You lost!");
-                    } else if (mc.getMeasuredTime() == Integer.getInteger(server[1])) {
-                        mc.getO_win().setVisible(true);
-                        mc.getY_win().setVisible(true);
-                        mc.getOpponent().setText(server[1]);
-                        mc.getYou().setText(Long.toString(mc.getMeasuredTime()));
-                        mc.getResult().setText("It's a draw!");
+                    } else if (rm.getMeasuredTime() > Integer.getInteger(server[1])) {
+                        rm.getO_lose().setVisible(true);
+                        rm.getY_win().setVisible(true);
+                        rm.getOpponent().setText(server[1]);
+                        rm.getYou().setText(Long.toString(rm.getMeasuredTime()));
+                        rm.getResult().setText("You won!");
+                    } else if (rm.getMeasuredTime() < Integer.getInteger(server[1])) {
+                        rm.getO_win().setVisible(true);
+                        rm.getY_lose().setVisible(true);
+                        rm.getOpponent().setText(server[1]);
+                        rm.getYou().setText(Long.toString(rm.getMeasuredTime()));
+                        rm.getResult().setText("You lost!");
+                    } else if (rm.getMeasuredTime() == Integer.getInteger(server[1])) {
+                        rm.getO_win().setVisible(true);
+                        rm.getY_win().setVisible(true);
+                        rm.getOpponent().setText(server[1]);
+                        rm.getYou().setText(Long.toString(rm.getMeasuredTime()));
+                        rm.getResult().setText("It's a draw!");
                     }
                 }
                 level++;

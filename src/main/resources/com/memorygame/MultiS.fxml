@@ -12,161 +12,161 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="498.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.memorygame.MultiSController">
-   <children>
-      <SplitPane fx:id="splitPane" dividerPositions="0.6878124999999998" prefHeight="498.0" prefWidth="769.0">
-         <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="446.0" prefWidth="487.0">
-               <children>
-                  <Label fx:id="score_number" layoutX="80.0" layoutY="34.0" prefHeight="30.0" prefWidth="81.0">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="time_number" layoutX="238.0" layoutY="34.0" prefHeight="30.0" prefWidth="81.0">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="time" alignment="CENTER" layoutX="174.0" layoutY="35.0" prefHeight="27.0" prefWidth="75.0" text="Time: " textAlignment="CENTER">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="score" alignment="CENTER" layoutX="14.0" layoutY="33.0" prefHeight="30.0" prefWidth="75.0" text="Score: " textAlignment="CENTER">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Pane fx:id="pane" layoutX="4.0" layoutY="65.0" prefHeight="363.0" prefWidth="472.0">
-                     <children>
-                        <Button fx:id="start" layoutX="202.0" layoutY="147.0" mnemonicParsing="false" onAction="#start" text="Start" textFill="#b70303">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
+    <children>
+        <SplitPane fx:id="splitPane" dividerPositions="0.6878124999999998" prefHeight="498.0" prefWidth="769.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="446.0" prefWidth="487.0">
+                    <children>
+                        <Label fx:id="score_number" layoutX="80.0" layoutY="34.0" prefHeight="30.0" prefWidth="81.0">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="time_number" layoutX="238.0" layoutY="34.0" prefHeight="30.0" prefWidth="81.0">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="time" alignment="CENTER" layoutX="174.0" layoutY="35.0" prefHeight="27.0" prefWidth="75.0" text="Time: " textAlignment="CENTER">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="score" alignment="CENTER" layoutX="14.0" layoutY="33.0" prefHeight="30.0" prefWidth="75.0" text="Score: " textAlignment="CENTER">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Label>
+                        <Pane fx:id="pane" layoutX="4.0" layoutY="65.0" prefHeight="363.0" prefWidth="472.0">
+                            <children>
+                                <Button fx:id="start" layoutX="202.0" layoutY="147.0" mnemonicParsing="false" onAction="#start" text="Start" textFill="#b70303">
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Button>
+                                <Label fx:id="key" contentDisplay="CENTER" layoutX="88.0" layoutY="51.0" prefHeight="27.0" prefWidth="102.0" text="  " visible="false">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="textField" layoutX="39.0" layoutY="221.0" onKeyPressed="#typed_key" opacity="0.0" />
+                                <Label fx:id="game_over" layoutX="180.0" layoutY="150.0" text="Game Over" visible="false">
+                                    <font>
+                                        <Font size="20.0" />
+                                    </font>
+                                </Label>
+                                <Button fx:id="new_game" layoutX="187.0" layoutY="291.0" mnemonicParsing="false" onAction="#newGame" text="New game" visible="false">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Button>
+                                <Label fx:id="finished" layoutX="173.0" layoutY="135.0" text="Level finished!" visible="false">
+                                    <font>
+                                        <Font size="20.0" />
+                                    </font>
+                                </Label>
+                                <Button fx:id="next_level" layoutX="185.0" layoutY="271.0" mnemonicParsing="false" onAction="#nextLevel" text="Next level" visible="false">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Button>
+                                <Label fx:id="result" layoutX="111.0" layoutY="205.0" prefHeight="32.0" prefWidth="237.0" text="  ">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </Pane>
+                        <Label fx:id="level_number" layoutX="385.0" layoutY="34.0" prefHeight="30.0" prefWidth="81.0" text="1">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="level" alignment="CENTER" layoutX="320.0" layoutY="33.0" prefHeight="30.0" prefWidth="75.0" text="Level:" textAlignment="CENTER">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="no_previous" minHeight="0.0" minWidth="0.0" prefHeight="489.0" prefWidth="271.0">
+                    <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-7.0" layoutY="124.0" prefHeight="56.0" prefWidth="213.0" text="No previous game">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lastLevel" alignment="CENTER" layoutX="71.0" layoutY="35.0" prefHeight="37.0" prefWidth="95.0" text="Last level:" textAlignment="CENTER">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <GridPane layoutX="27.0" layoutY="89.0" prefHeight="126.0" prefWidth="182.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label fx:id="you" alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="91.0" text="You" textAlignment="CENTER">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="opponent" alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="91.0" text="Opponent" GridPane.columnIndex="1">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="y_win" alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="91.0" text="Winner" textFill="#0d8c02" visible="false" GridPane.rowIndex="1">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="o_win" alignment="CENTER" contentDisplay="CENTER" prefHeight="41.0" prefWidth="91.0" text="Winner" textFill="#0d8c02" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="41.0" prefWidth="91.0" text="0" GridPane.rowIndex="2">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="91.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="y_lose" alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="91.0" text="Looser" textFill="#c40000" visible="false" GridPane.rowIndex="1">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="o_lose" alignment="CENTER" contentDisplay="CENTER" prefHeight="41.0" prefWidth="91.0" text="Looser" textFill="#c40000" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </GridPane>
+                        <Button fx:id="home" alignment="CENTER" layoutX="24.0" layoutY="380.0" mnemonicParsing="false" onAction="#go_home" prefHeight="30.0" prefWidth="75.0" text="Home">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
                         </Button>
-                        <Label fx:id="key" contentDisplay="CENTER" layoutX="88.0" layoutY="51.0" prefHeight="27.0" prefWidth="102.0" text="  " visible="false">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="textField" layoutX="39.0" layoutY="221.0" onKeyPressed="#typed_key" opacity="0.0" />
-                        <Label fx:id="game_over" layoutX="180.0" layoutY="150.0" text="Game Over" visible="false">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Button fx:id="new_game" layoutX="187.0" layoutY="291.0" mnemonicParsing="false" onAction="#newGame" text="New game" visible="false">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
+                        <Button fx:id="back" alignment="CENTER" layoutX="142.0" layoutY="380.0" mnemonicParsing="false" onAction="#go_back" prefHeight="30.0" prefWidth="64.0" text="Back">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
                         </Button>
-                        <Label fx:id="finished" layoutX="173.0" layoutY="135.0" text="Level finished!" visible="false">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                        <Button fx:id="next_level" layoutX="185.0" layoutY="271.0" mnemonicParsing="false" onAction="#nextLevel" text="Next level" visible="false">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
-                        <Label fx:id="result" layoutX="111.0" layoutY="205.0" prefHeight="32.0" prefWidth="237.0" text="  ">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <Label fx:id="level_number" layoutX="385.0" layoutY="34.0" prefHeight="30.0" prefWidth="81.0" text="1">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="level" alignment="CENTER" layoutX="320.0" layoutY="33.0" prefHeight="30.0" prefWidth="75.0" text="Level:" textAlignment="CENTER">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="no_previous" minHeight="0.0" minWidth="0.0" prefHeight="489.0" prefWidth="271.0">
-               <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-7.0" layoutY="124.0" prefHeight="56.0" prefWidth="213.0" text="No previous game">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lastLevel" alignment="CENTER" layoutX="71.0" layoutY="35.0" prefHeight="37.0" prefWidth="95.0" text="Last level:" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <GridPane layoutX="27.0" layoutY="89.0" prefHeight="126.0" prefWidth="182.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label fx:id="you" alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="91.0" text="You" textAlignment="CENTER">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="opponent" alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="91.0" text="Opponent" GridPane.columnIndex="1">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="y_win" alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="91.0" text="Winner" textFill="#0d8c02" visible="false" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="o_win" alignment="CENTER" contentDisplay="CENTER" prefHeight="41.0" prefWidth="91.0" text="Winner" textFill="#0d8c02" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="41.0" prefWidth="91.0" text="0" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="91.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="y_lose" alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="91.0" text="Looser" textFill="#c40000" visible="false" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="o_lose" alignment="CENTER" contentDisplay="CENTER" prefHeight="41.0" prefWidth="91.0" text="Looser" textFill="#c40000" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </GridPane>
-                  <Button fx:id="home" alignment="CENTER" layoutX="24.0" layoutY="380.0" mnemonicParsing="false" onAction="#go_home" prefHeight="30.0" prefWidth="75.0" text="Home">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="back" alignment="CENTER" layoutX="142.0" layoutY="380.0" mnemonicParsing="false" onAction="#go_back" prefHeight="30.0" prefWidth="64.0" text="Back">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </AnchorPane>
-         </items>
-      </SplitPane>
-   </children>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
 </AnchorPane>

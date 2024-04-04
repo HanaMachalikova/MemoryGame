@@ -107,12 +107,24 @@ public class MultiCController {
 
     private long startTime;
     private long measuredTime;
+    private String msg;
 
-    private Multiton multiton;
+    private MsgMultiton mm;
+    private ResultMultiton rm;
+    private ConSingleton cs = ConSingleton.getInstance();
+
 
 
     @FXML
     void start(ActionEvent event) throws InterruptedException {
+        cs.setNext_level(next_level);
+        cs.setO_lose(o_lose);
+        cs.setO_win(o_win);
+        cs.setOpponent(opponent);
+        cs.setY_lose(y_lose);
+        cs.setY_win(y_win);
+        cs.setYou(you);
+        cs.setResult(result);
         sc_number = 0;
         measuredTime = 0;
         start.setVisible(false);
@@ -151,12 +163,20 @@ public class MultiCController {
                 sc_number++;
                 answerOrder++;
                 if (answerOrder == 5) {
+                    measuredTime = System.currentTimeMillis() - startTime;
                     y_lose.setVisible(false);
                     y_win.setVisible(false);
                     o_lose.setVisible(false);
                     o_win.setVisible(false);
+                    msg = "p;" + (measuredTime);
+                    mm = MsgMultiton.getInstance(String.valueOf(lvl));
+                    mm.setMessage(msg);
+                    rm = ResultMultiton.getInstance(String.valueOf(lvl));
+                    rm.setFailed(false);
+                    rm.setTime(measuredTime);
+                    System.out.println(lvl);
+                    System.out.println(mm.getMessage());
                     lvl++;
-                    multiton = Multiton.getInstance(String.valueOf(lvl), "p;" + (System.currentTimeMillis() - startTime));
                     answerOrder = 0;
                     failed = false;
                     key.setVisible(false);
@@ -180,7 +200,12 @@ public class MultiCController {
 
             } else {
                 System.out.println("game over");
-                multiton = Multiton.getInstance(String.valueOf(lvl), "f;" + (System.currentTimeMillis() - startTime));
+                msg = "f;" + (System.currentTimeMillis() - startTime);
+                mm = MsgMultiton.getInstance(String.valueOf(lvl));
+                mm.setMessage(msg);
+                rm = ResultMultiton.getInstance(String.valueOf(lvl));
+                rm.setFailed(true);
+                rm.setTime(measuredTime);
                 key.setVisible(false);
                 finished.setVisible(true);
                 finished.setText("You failed!");
