@@ -68,10 +68,6 @@ public class SecondController {
 
     }
 
-    public ServerThread getSt() {
-        return st;
-    }
-
     void showWindow(ActionEvent event, String resource, String title) throws IOException {
         Node source = (Node)  event.getSource();
         Stage primarystage  = (Stage) source.getScene().getWindow();

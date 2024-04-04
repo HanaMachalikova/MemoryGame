@@ -108,8 +108,7 @@ public class MultiSController {
     private long startTime;
     private long measuredTime;
 
-    FirstController fc = new FirstController();
-    ServerThread st = fc.getSt();
+    private Multiton multiton;
 
 
     @FXML
@@ -156,14 +155,8 @@ public class MultiSController {
                     y_win.setVisible(false);
                     o_lose.setVisible(false);
                     o_win.setVisible(false);
+                    multiton = Multiton.getInstance(Integer.toString(lvl), "p;" + (System.currentTimeMillis() - startTime));
                     lvl++;
-                    if (st.first) {
-                        st.msgFromServer = "p;" + (System.currentTimeMillis() - startTime);
-                        System.out.println(st.msgFromServer);
-                    } else if (!(st.first)) {
-                        st.msgFromClient = "p;" + (System.currentTimeMillis() - startTime);
-                        System.out.println(st.msgFromClient);
-                    }
                     answerOrder = 0;
                     failed = false;
                     key.setVisible(false);
@@ -187,13 +180,7 @@ public class MultiSController {
 
             } else {
                 System.out.println("game over");
-                if (st.first) {
-                    st.msgFromServer = "f;" + (System.currentTimeMillis() - startTime);
-                    System.out.println(st.msgFromServer);
-                } else if (!(st.first)) {
-                    st.msgFromClient = "f;" + (System.currentTimeMillis() - startTime);
-                    System.out.println(st.msgFromClient);
-                }
+                multiton = Multiton.getInstance(Integer.toString(lvl), "f;" + (System.currentTimeMillis() - startTime));
                 key.setVisible(false);
                 finished.setVisible(true);
                 finished.setText("You failed!");

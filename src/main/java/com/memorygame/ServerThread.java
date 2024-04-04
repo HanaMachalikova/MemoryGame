@@ -17,10 +17,10 @@ public class ServerThread extends Thread {
 
     boolean first;
 
-    public String msgFromClient = "";
+    public static String msgFromClient = "";
 
-    public String msgFromServer = "";
-    public int level;
+    public static String msgFromServer = "";
+    public int level = 1;
 
     public ServerThread(String role, String cport, int sport, ActionEvent event) {
         this.role = role;
@@ -28,6 +28,8 @@ public class ServerThread extends Thread {
         this.sport = sport;
         this.event = event;
     }
+
+    private Multiton multiton;
 
     public boolean isReady() {
         return ready;
@@ -37,13 +39,13 @@ public class ServerThread extends Thread {
         this.first = first;
     }
 
-    public void setMsgFromClient(String msgFromClient) {
+    /*public void setMsgFromClient(String msgFromClient) {
         this.msgFromClient = msgFromClient;
     }
 
     public void setMsgFromServer(String msgFromServer) {
         this.msgFromServer = msgFromServer;
-    }
+    }*/
 
     public void run() {
         switch (role) {
@@ -75,7 +77,7 @@ public class ServerThread extends Thread {
         System.out.println("Server is ready");
 
 
-        while (true) {
+        while (level <= 5) {
             try {
                 socket = serverSocket.accept();
 
@@ -96,7 +98,8 @@ public class ServerThread extends Thread {
                 }
 
                 while (true) {
-                    Thread.sleep(30000);
+                    multiton = Multiton.getInstance(String.valueOf(level), null);
+                    msgFromServer = multiton.getMessage();
                     System.out.println("started while(true) 1");
                     System.out.println(msgFromServer.isEmpty());
                     while(true) {
@@ -161,6 +164,7 @@ public class ServerThread extends Thread {
                     if (msgClient.equalsIgnoreCase("BYE")) {
                         break;
                     }
+                    level++;
 
                 }
 
@@ -171,8 +175,6 @@ public class ServerThread extends Thread {
                 bufferedWriter.close();
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         }
     }
@@ -203,10 +205,12 @@ public class ServerThread extends Thread {
             ow.showWindow();
             String msgServer;
 
-            while (true) {
-                Thread.sleep(30000);
+            while (level <= 5) {
+                multiton = Multiton.getInstance(String.valueOf(level), null);
+                msgFromClient = multiton.getMessage();
                 System.out.println("started while(true) 1");
                 System.out.println(msgFromClient.isEmpty());
+
                 while (true) {
                     if (!msgFromClient.isEmpty()) {
                         bufferedWriter.write(msgFromClient);
@@ -265,13 +269,12 @@ public class ServerThread extends Thread {
                         mc.getResult().setText("It's a draw!");
                     }
                 }
+                level++;
                 if (msgFromClient.equalsIgnoreCase("BYE"))
                     break;
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         } finally {
             try {
                 if (socket != null)
