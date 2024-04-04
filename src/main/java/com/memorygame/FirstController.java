@@ -33,6 +33,7 @@ public class FirstController {
     private Button generator;
 
     boolean ready = false;
+    ServerThread st;
 
     @FXML
     void back(ActionEvent event) throws IOException {
@@ -49,18 +50,18 @@ public class FirstController {
         /*Thread h = new Thread(() -> {
             if (prepared() == true) {
                 try {
-                    showWindow(event, "Multi.fxml", "Multiplayer player one");
+                    showWindow(event, "MultiS.fxml", "Multiplayer player one");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
         });*/
         System.out.println(portNumber);
-        ServerThread s = new ServerThread("server", "0000", portNumber, event);
-        s.start();
-        s.first = true;
+        st = new ServerThread("server", "0000", portNumber, event);
+        st.start();
+        st.first = true;
         System.out.println(portNumber);
-        /*OpenWindow ow = new OpenWindow(event, "Multi.fxml", "Multiplayer");
+        /*OpenWindow ow = new OpenWindow(event, "MultiS.fxml", "Multiplayer");
         ow.showWindow();
         /*ReadyThread r = new ReadyThread(event, s);
         r.start();
@@ -73,7 +74,7 @@ public class FirstController {
             //if (prepared(v) == true) {
                 //try {
                     //System.out.println("ready");
-                    //showWindow(event, "Multi.fxml", "Multiplayer player one");
+                    //showWindow(event, "MultiS.fxml", "Multiplayer player one");
                 /*} catch (IOException e) {
                     throw new RuntimeException(e);
                 }*/
@@ -82,69 +83,15 @@ public class FirstController {
         //Thread.sleep(500);
         /*while (true){
             if (v.ready == true) {
-                showWindow(event, "Multi.fxml", "Multiplayer");
+                showWindow(event, "MultiS.fxml", "Multiplayer");
                 break;
             }
             Thread.sleep(1);
         }*/
     }
 
-    /*boolean prepared (Thread t) {
-        while (true) {
-            if(t.ready == true) {
-                return true;
-            }
-        }
-    }*/
-
-    public void server (int portNumber) throws IOException{
-        Socket socket = null;
-        InputStreamReader inputStreamReader = null;
-        OutputStreamWriter outputStreamWriter = null;
-        BufferedReader bufferedReader = null;
-        BufferedWriter bufferedWriter = null;
-
-        ServerSocket serverSocket = new ServerSocket(portNumber);
-
-        System.out.println("Server is ready");
-
-
-        while (true) {
-            try {
-                socket = serverSocket.accept();
-
-                inputStreamReader = new InputStreamReader(socket.getInputStream());
-                outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
-
-                bufferedReader = new BufferedReader(inputStreamReader);
-                bufferedWriter = new BufferedWriter(outputStreamWriter);
-
-                while (true) {
-                    String msgFromClient = bufferedReader.readLine();
-                    if(msgFromClient.equalsIgnoreCase("ready")) {
-                        ready = true;
-                    }
-                    System.out.println("Client: " + msgFromClient);
-
-                    bufferedWriter.write("MSG recieved");
-                    bufferedWriter.newLine();
-                    bufferedWriter.flush();
-
-                    if (msgFromClient.equalsIgnoreCase("BYE")) {
-                        break;
-                    }
-
-                }
-
-                socket.close();
-                inputStreamReader.close();
-                outputStreamWriter.close();
-                bufferedReader.close();
-                bufferedWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public ServerThread getSt() {
+        return st;
     }
 
     void showWindow(ActionEvent event, String resource, String title) throws IOException {

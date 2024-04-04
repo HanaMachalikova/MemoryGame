@@ -24,7 +24,7 @@ public class ReadyThread extends Thread{
             if (s.ready == true) {
                 System.out.println("got ready true");
                 try {
-                    showWindow(event, "Multi.fxml", "Multiplayer");
+                    showWindow(event, "MultiS.fxml", "Multiplayer");
                     System.out.println("shown window");
                 } catch (IOException e) {
                     throw new RuntimeException(e);

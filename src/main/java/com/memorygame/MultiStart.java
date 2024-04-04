@@ -87,7 +87,7 @@ public class MultiStart {/*
             letterOrder = 0;
             if (answer.equals(letters)) {
                 if (answerOrder == 15) {
-                    MultiController mc = new MultiController();
+                    MultiSController mc = new MultiSController();
                     mc.getY_lose().setVisible(false);
                     mc.getY_win().setVisible(false);
                     mc.getO_lose().setVisible(false);

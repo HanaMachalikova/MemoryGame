@@ -38,6 +38,7 @@ public class SecondController {
     private Label text_enter;
 
     boolean ready = false;
+    ServerThread st;
 
     @FXML
     void back(ActionEvent event) throws IOException {
@@ -51,9 +52,9 @@ public class SecondController {
         System.out.println(Integer.valueOf(code));
         //try{
         //    serverSocket = new ServerSocket(Integer.valueOf(code));
-        ServerThread s = new ServerThread("client", code, 0, event);
-        s.start();
-        s.first = false;
+        st = new ServerThread("client", code, 0, event);
+        st.start();
+        st.first = false;
         /*Thread.sleep(10000);
         System.out.println(s.ready);
         /*ReadyThread r = new ReadyThread(event, s);
@@ -67,55 +68,8 @@ public class SecondController {
 
     }
 
-    void client(String portNumber) {
-        Socket socket = null;
-        InputStreamReader inputStreamReader = null;
-        OutputStreamWriter outputStreamWriter = null;
-        BufferedReader bufferedReader = null;
-        BufferedWriter bufferedWriter = null;
-
-        try {
-            socket = new Socket("localhost", Integer.valueOf(portNumber));
-            inputStreamReader = new InputStreamReader(socket.getInputStream());
-            outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
-
-            bufferedReader = new BufferedReader(inputStreamReader);
-            bufferedWriter = new BufferedWriter(outputStreamWriter);
-
-            Scanner sc = new Scanner(System.in);
-
-            while (true) {
-                String msgToSend = sc.nextLine();
-                bufferedWriter.write(msgToSend);
-                bufferedWriter.newLine();
-                bufferedWriter.flush();
-
-                System.out.println("Client: " + bufferedReader.readLine());
-
-                if(msgToSend.equalsIgnoreCase("BYE"))
-                    break;
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (socket != null)
-                    socket.close();
-                if (inputStreamReader != null)
-                    inputStreamReader.close();
-                if (outputStreamWriter != null)
-                    outputStreamWriter.close();
-                if (bufferedReader != null)
-                    bufferedReader.close();
-                if (bufferedWriter != null)
-                    bufferedWriter.close();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-
-        }
-
+    public ServerThread getSt() {
+        return st;
     }
 
     void showWindow(ActionEvent event, String resource, String title) throws IOException {
