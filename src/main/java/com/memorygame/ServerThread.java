@@ -93,11 +93,35 @@ public class ServerThread extends  Thread{
                     }
                     System.out.println("ready: " + ready);
                     System.out.println("Client: " + msgClient);
-                    String[] failed = msgClient.split(";");
-                    if(failed[0].equals("f"))
+                    String[] client = msgClient.split(";");
+                    MultiController mc = new MultiController();
+                    if(client[0].equals("f")) {
+                        mc.getOpponent().setText("failed");
+                        mc.getO_lose().setVisible(true);
+                    } else if (mc.isFailed()) {
+                        mc.getY_lose().setVisible(true);
+                        mc.getYou().setText("failed");
+                    } else if (mc.getMeasuredTime() > Integer.getInteger(client[1])) {
+                        mc.getO_lose().setVisible(true);
+                        mc.getY_win().setVisible(true);
+                        mc.getOpponent().setText(client[1]);
+                        mc.getYou().setText(Long.toString(mc.getMeasuredTime()));
+                    } else if (mc.getMeasuredTime() < Integer.getInteger(client[1])) {
+                        mc.getO_win().setVisible(true);
+                        mc.getY_lose().setVisible(true);
+                        mc.getOpponent().setText(client[1]);
+                        mc.getYou().setText(Long.toString(mc.getMeasuredTime()));
+                    } else if (mc.getMeasuredTime() == Integer.getInteger(client[1])) {
+                        mc.getO_win().setVisible(true);
+                        mc.getY_win().setVisible(true);
+                        mc.getOpponent().setText(client[1]);
+                        mc.getYou().setText(Long.toString(mc.getMeasuredTime()));
+                    }
                     bufferedWriter.write(msgFromServer);
                     bufferedWriter.newLine();
                     bufferedWriter.flush();
+
+                    msgFromServer = "";
 
                     if (msgClient.equalsIgnoreCase("BYE")) {
                         break;
@@ -148,7 +172,32 @@ public class ServerThread extends  Thread{
                     bufferedWriter.newLine();
                     bufferedWriter.flush();
 
-                    System.out.println("Client: " + bufferedReader.readLine());
+                    String msgServer = bufferedReader.readLine();
+                    System.out.println("Server: " + msgServer);
+                    String[] client = msgServer.split(";");
+                    MultiController mc = new MultiController();
+                    if(client[0].equals("f")) {
+                        mc.getOpponent().setText("failed");
+                        mc.getO_lose().setVisible(true);
+                    } else if (mc.isFailed()) {
+                        mc.getY_lose().setVisible(true);
+                        mc.getYou().setText("failed");
+                    } else if (mc.getMeasuredTime() > Integer.getInteger(client[1])) {
+                        mc.getO_lose().setVisible(true);
+                        mc.getY_win().setVisible(true);
+                        mc.getOpponent().setText(client[1]);
+                        mc.getYou().setText(Long.toString(mc.getMeasuredTime()));
+                    } else if (mc.getMeasuredTime() < Integer.getInteger(client[1])) {
+                        mc.getO_win().setVisible(true);
+                        mc.getY_lose().setVisible(true);
+                        mc.getOpponent().setText(client[1]);
+                        mc.getYou().setText(Long.toString(mc.getMeasuredTime()));
+                    } else if (mc.getMeasuredTime() == Integer.getInteger(client[1])) {
+                        mc.getO_win().setVisible(true);
+                        mc.getY_win().setVisible(true);
+                        mc.getOpponent().setText(client[1]);
+                        mc.getYou().setText(Long.toString(mc.getMeasuredTime()));
+                    }
 
                     if (msgFromClient.equalsIgnoreCase("BYE"))
                         break;

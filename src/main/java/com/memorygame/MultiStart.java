@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MultiStart {
+public class MultiStart {/*
 
     private boolean game;
     private char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
@@ -25,6 +25,7 @@ public class MultiStart {
     private int lvl = 1;
     private int answerOrder = 0;
     private int letterOrder = 0;
+    private boolean failed;
 
     private long startTime;
     private long measuredTime;
@@ -85,7 +86,12 @@ public class MultiStart {
         if (letterOrder == lvl) {
             letterOrder = 0;
             if (answer.equals(letters)) {
-                if (answerOrder == 5) {
+                if (answerOrder == 15) {
+                    MultiController mc = new MultiController();
+                    mc.getY_lose().setVisible(false);
+                    mc.getY_win().setVisible(false);
+                    mc.getO_lose().setVisible(false);
+                    mc.getO_win().setVisible(false);
                     if (st.first) {
                         st.msgFromServer = "p;1";
                     } else if (!(st.first)) {
@@ -94,6 +100,7 @@ public class MultiStart {
                     lvl++;
                     level.setText(Integer.toString(lvl));
                     answerOrder = 0;
+                    failed = false;
                 }
                 key.setVisible(false);
                 sc_number++;
@@ -115,10 +122,15 @@ public class MultiStart {
                 lvl = 1;
                 level.setText("1");
                 answerOrder = 0;
+                failed = true;
             }
         }
 
 
+    }
+
+    public boolean isFailed() {
+        return failed;
     }
 
     /*public void stopWatch() throws InterruptedException {
@@ -130,12 +142,12 @@ public class MultiStart {
         }
     }*/
 
-    void propertiesOfButton(){
+    /*void propertiesOfButton(){
         //coordinateX = (int) ((Math.random() * (pane.getWidth() + 1)) + pane.getLayoutX());
         //coordinateY = (int) ((Math.random() * (pane.getHeight() + 1)) + pane.getLayoutY());
         coordinateX = (int) ((Math.random() * pane.getWidth() + 1));
         coordinateY = (int) ((Math.random() * pane.getHeight() + 1));
 
-    }
+    }*/
 
 }
