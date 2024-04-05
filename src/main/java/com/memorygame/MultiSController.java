@@ -124,6 +124,7 @@ public class MultiSController {
         cs.setYou(you);
         cs.setResult(result);
         cs.setNo_previous(no_previous);
+        cs.setTime(time_number);
         sc_number = 0;
         measuredTime = 0;
         start.setVisible(false);
@@ -241,6 +242,7 @@ public class MultiSController {
 
     @FXML
     void nextLevel(ActionEvent event) throws InterruptedException {
+        textField.requestFocus();
         startGame();
         level_number.setText(Integer.toString(lvl));
         finished.setVisible(false);

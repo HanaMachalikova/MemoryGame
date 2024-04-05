@@ -17,12 +17,12 @@
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="446.0" prefWidth="487.0">
                     <children>
-                        <Label fx:id="score_number" layoutX="80.0" layoutY="34.0" prefHeight="30.0" prefWidth="81.0">
+                        <Label fx:id="score_number" layoutX="75.0" layoutY="33.0" prefHeight="30.0" prefWidth="81.0">
                             <font>
                                 <Font size="15.0" />
                             </font>
                         </Label>
-                        <Label fx:id="time_number" layoutX="238.0" layoutY="34.0" prefHeight="30.0" prefWidth="81.0">
+                        <Label fx:id="time_number" layoutX="232.0" layoutY="33.0" prefHeight="30.0" prefWidth="81.0">
                             <font>
                                 <Font size="15.0" />
                             </font>
@@ -37,7 +37,7 @@
                                 <Font size="15.0" />
                             </font>
                         </Label>
-                        <Pane fx:id="pane" layoutX="21.0" layoutY="73.0" prefHeight="363.0" prefWidth="484.0">
+                        <Pane fx:id="pane" layoutX="21.0" layoutY="75.0" prefHeight="363.0" prefWidth="484.0">
                             <children>
                                 <Button fx:id="start" layoutX="209.0" layoutY="147.0" mnemonicParsing="false" onAction="#start" text="Start">
                                     <font>
@@ -70,16 +70,16 @@
                                         <Font size="18.0" />
                                     </font>
                                 </Button>
-                                <Label fx:id="result" alignment="CENTER" layoutX="111.0" layoutY="205.0" prefHeight="32.0" prefWidth="237.0" text="  " visible="false">
+                                <Label fx:id="result" alignment="CENTER" layoutX="111.0" layoutY="205.0" prefHeight="32.0" prefWidth="245.0" text="  " visible="false">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
                                 </Label>
                             </children>
                         </Pane>
-                        <Label fx:id="level_number" layoutX="385.0" layoutY="34.0" prefHeight="30.0" prefWidth="81.0" text="1">
+                        <Label fx:id="level_number" layoutX="382.0" layoutY="33.0" prefHeight="30.0" prefWidth="81.0" text="1">
                             <font>
-                                <Font size="15.0" />
+                                <Font size="16.0" />
                             </font>
                         </Label>
                         <Label fx:id="level" alignment="CENTER" layoutX="320.0" layoutY="33.0" prefHeight="30.0" prefWidth="75.0" text="Level:" textAlignment="CENTER">

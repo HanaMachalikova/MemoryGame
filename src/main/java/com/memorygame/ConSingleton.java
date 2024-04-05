@@ -16,6 +16,7 @@ public class ConSingleton {
     public Label opponent;
     public Label result;
     public Label no_previous;
+    public Label time;
     public boolean ready = false;
 
     public static ConSingleton getInstance() {
@@ -23,6 +24,14 @@ public class ConSingleton {
             single_instance = new ConSingleton();
 
         return single_instance;
+    }
+
+    public Label getTime() {
+        return time;
+    }
+
+    public void setTime(Label time) {
+        this.time = time;
     }
 
     public void setNo_previous(Label no_previous) {

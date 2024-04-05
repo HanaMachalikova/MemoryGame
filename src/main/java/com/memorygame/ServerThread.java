@@ -270,7 +270,7 @@ public class ServerThread extends Thread {
             cs.getYou().setText(yTime);
             cs.getOpponent().setText(oTime);
             cs.getNo_previous().setVisible(false);
-
+            cs.getTime().setText(yTime);
         });
     }
 
