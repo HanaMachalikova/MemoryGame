@@ -93,7 +93,7 @@ public class MultiController {
 
     @FXML
     private Label you;
-    private char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+    private char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
     private int coordinateX;
     private int coordinateY;
     private int sc_number = 0;
@@ -102,8 +102,6 @@ public class MultiController {
     private int lvl = 1;
     private int answerOrder = 0;
     private int letterOrder = 0;
-    private boolean failed;
-
     private long startTime;
     private long measuredTime;
     private String msg;
@@ -124,6 +122,10 @@ public class MultiController {
         es.setResult(result);
         es.setNo_previous(no_previous);
         es.setTime(time_number);
+        es.setNew_game(new_game);
+        es.setGame_over(game_over);
+        es.setFinished(finished);
+        lvl = 1;
         sc_number = 0;
         measuredTime = 0;
         start.setVisible(false);
@@ -131,6 +133,7 @@ public class MultiController {
         //System.out.println(pane.getLayoutY());
         //System.out.println(startTime + " ms");
         startGame();
+        level_number.setText(String.valueOf(1));
 
     }
 
@@ -154,89 +157,80 @@ public class MultiController {
 
     @FXML
     public void typed_key(KeyEvent event) throws InterruptedException {
+
         letterOrder++;
         answer += event.getText();
-        if (letterOrder == lvl) {
+        if ((letterOrder == lvl) && answer.equals(letters)) {
+            key.setVisible(false);
             letterOrder = 0;
-            if (answer.equals(letters)) {
-                sc_number++;
-                answerOrder++;
-                if (answerOrder == 5) {
-                    measuredTime = System.currentTimeMillis() - startTime;
-                    y_lose.setVisible(false);
-                    y_win.setVisible(false);
-                    o_lose.setVisible(false);
-                    o_win.setVisible(false);
-                    msg = "p;" + (measuredTime);
-                    mm = MsgMultiton.getInstance(String.valueOf(lvl));
-                    mm.setMessage(msg);
-                    rm = ResultMultiton.getInstance(String.valueOf(lvl));
-                    rm.setFailed(false);
-                    rm.setTime(measuredTime);
-                    System.out.println(lvl);
-                    System.out.println(mm.getMessage());
-                    lvl++;
-                    answerOrder = 0;
-                    failed = false;
-                    key.setVisible(false);
-                    if (lvl <= 3) {
-                        key.setVisible(false);
-                        finished.setVisible(true);
-                        finished.setText("You finished!");
-                        result.setVisible(true);
-                        result.setText("Waiting for your opponent");
-                        /*while (true) {
-                            if (es.isReady()) {
-                                opponent.setText(String.valueOf(es.getTime()));
-                                if (!es.isOpponent() && !es.isYou()) {
-                                    result.setText("You both failed!");
-                                }else if (!es.isOpponent()) {
-                                    result.setText("You won!");
-                                }else if (!es.isYou()) {
-                                    result.setText("You lost!");
-                                } else {
-                                    result.setText("It's a draw!");
-                                }
-                            }
-                        }*/
-                    }
-                    if (lvl == 4) {
-                        key.setVisible(false);
-                        game_over.setVisible(true);
-                        game_over.setText("Game finished");
-                        lvl = 0;
-                        new_game.setVisible(true);
-                    }
-                } else {
-                    startGame();
-                }
-
-            } else {
-                System.out.println("game over");
-                msg = "f;" + (System.currentTimeMillis() - startTime);
+            sc_number++;
+            answerOrder++;
+            if (answerOrder == 5) {
+                measuredTime = System.currentTimeMillis() - startTime;
+                y_lose.setVisible(false);
+                y_win.setVisible(false);
+                o_lose.setVisible(false);
+                o_win.setVisible(false);
+                rm = ResultMultiton.getInstance(String.valueOf(lvl));
+                msg = "p;" + (measuredTime);
                 mm = MsgMultiton.getInstance(String.valueOf(lvl));
                 mm.setMessage(msg);
-                rm = ResultMultiton.getInstance(String.valueOf(lvl));
-                rm.setFailed(true);
+                rm.setFailed(false);
                 rm.setTime(measuredTime);
-                key.setVisible(false);
+                lvl++;
+                answerOrder = 0;
+                time.setVisible(true);
+                time_number.setText(measuredTime + " ms");
+                if (lvl <= 3) {
+                    finished.setVisible(true);
+                    finished.setText("You finished!");
+                    result.setVisible(true);
+                    result.setText("Waiting for your opponent");
+                }else if (lvl == 4) {
+                    game_over.setVisible(true);
+                    game_over.setText("Game finished");
+                    lvl = 1;
+                    new_game.setVisible(true);
+                }
+            } else {
+                startGame();
+            }
+        } else if (!answer.equals(letters.substring(0, answer.length()))) {
+            key.setVisible(false);
+            time.setVisible(true);
+            time_number.setText("failed");
+            rm = ResultMultiton.getInstance(String.valueOf(lvl));
+            rm.setTime(0);
+            System.out.println("game over");
+            msg = "f;" + (0);
+            mm = MsgMultiton.getInstance(String.valueOf(lvl));
+            mm.setMessage(msg);
+            rm = ResultMultiton.getInstance(String.valueOf(lvl));
+            rm.setFailed(true);
+            lvl++;
+            if (lvl == 4) {
+                game_over.setVisible(true);
+                game_over.setText("Game finished");
+                lvl = 1;
+                new_game.setVisible(true);
+            } else {
                 finished.setVisible(true);
                 finished.setText("You failed this level");
                 result.setVisible(true);
                 result.setText("Waiting for your opponent");
-                lvl++;
-                level_number.setText("1");
-                answerOrder = 0;
-                failed = true;
             }
+            answerOrder = 0;
         }
     }
 
     @FXML
     void newGame(ActionEvent event) {
-        game_over.setText("Game over");
-        game_over.setVisible(false);
         start.setVisible(true);
+        game_over.setVisible(false);
+        result.setVisible(false);
+        new_game.setVisible(false);
+        finished.setVisible(false);
+        lvl = 1;
     }
 
     @FXML
@@ -246,10 +240,12 @@ public class MultiController {
         level_number.setText(Integer.toString(lvl));
         finished.setVisible(false);
         result.setVisible(false);
+        game_over.setVisible(false);
         next_level.setVisible(false);
+        time.setVisible(false);
+        time_number.setVisible(false);
 
     }
-
 
 
     @FXML
@@ -263,8 +259,8 @@ public class MultiController {
     }
 
     void showWindow(ActionEvent event, String resource, String title) throws IOException {
-        Node source = (Node)  event.getSource();
-        Stage primarystage  = (Stage) source.getScene().getWindow();
+        Node source = (Node) event.getSource();
+        Stage primarystage = (Stage) source.getScene().getWindow();
         primarystage.close();
         FXMLLoader fxmlLoader = new FXMLLoader(MemoryGame.class.getResource(resource));
         Scene scene = new Scene(fxmlLoader.load());
@@ -274,55 +270,11 @@ public class MultiController {
         stage.show();
     }
 
-    void propertiesOfButton(){
+    void propertiesOfButton() {
         //coordinateX = (int) ((Math.random() * (pane.getWidth() + 1)) + pane.getLayoutX());
         //coordinateY = (int) ((Math.random() * (pane.getHeight() + 1)) + pane.getLayoutY());
         coordinateX = (int) ((Math.random() * pane.getWidth() + 1));
         coordinateY = (int) ((Math.random() * pane.getHeight() + 1));
 
     }
-    public Button getNext_level() {
-        return next_level;
-    }
-
-    public Label getResult() {
-        return result;
-    }
-
-    public int getLvl() {
-        return lvl;
-    }
-
-    public boolean isFailed() {
-        return failed;
-    }
-
-    public long getMeasuredTime() {
-        return measuredTime;
-    }
-
-    public Label getO_lose() {
-        return o_lose;
-    }
-
-    public Label getO_win() {
-        return o_win;
-    }
-
-    public Label getOpponent() {
-        return opponent;
-    }
-
-    public Label getY_lose() {
-        return y_lose;
-    }
-
-    public Label getY_win() {
-        return y_win;
-    }
-
-    public Label getYou() {
-        return you;
-    }
-
 }

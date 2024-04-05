@@ -59,7 +59,6 @@ public class FirstController {
         System.out.println(portNumber);
         st = new ServerThread("server", "0000", portNumber, event);
         st.start();
-        st.first = true;
         System.out.println(portNumber);
         /*OpenWindow ow = new OpenWindow(event, "Multi.fxml", "Multiplayer");
         ow.showWindow();

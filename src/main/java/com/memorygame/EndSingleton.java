@@ -2,10 +2,15 @@ package com.memorygame;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class EndSingleton {
     private static EndSingleton single_instance = null;
 
+    public Label text_enter;
+    public Label invalid1;
+    public Label invalid2;
+    public TextField code_field;
     public Button next_level;
     public Label y_win;
     public Label y_lose;
@@ -17,6 +22,9 @@ public class EndSingleton {
     public Label result;
     public Label no_previous;
     public Label time;
+    public Button new_game;
+    public Label game_over;
+    public Label finished;
     public boolean ready = false;
 
     public static EndSingleton getInstance() {
@@ -26,12 +34,68 @@ public class EndSingleton {
         return single_instance;
     }
 
+    public Label getFinished() {
+        return finished;
+    }
+
+    public void setFinished(Label finished) {
+        this.finished = finished;
+    }
+
     public Label getTime() {
         return time;
     }
 
+    public Button getNew_game() {
+        return new_game;
+    }
+
+    public void setNew_game(Button new_game) {
+        this.new_game = new_game;
+    }
+
+    public Label getGame_over() {
+        return game_over;
+    }
+
+    public void setGame_over(Label game_over) {
+        this.game_over = game_over;
+    }
+
     public void setTime(Label time) {
         this.time = time;
+    }
+
+    public Label getText_enter() {
+        return text_enter;
+    }
+
+    public Label getInvalid1() {
+        return invalid1;
+    }
+
+    public Label getInvalid2() {
+        return invalid2;
+    }
+
+    public TextField getCode_field() {
+        return code_field;
+    }
+
+    public void setText_enter(Label text_enter) {
+        this.text_enter = text_enter;
+    }
+
+    public void setInvalid1(Label invalid1) {
+        this.invalid1 = invalid1;
+    }
+
+    public void setInvalid2(Label invalid2) {
+        this.invalid2 = invalid2;
+    }
+
+    public void setCode_field(TextField code_field) {
+        this.code_field = code_field;
     }
 
     public void setNo_previous(Label no_previous) {

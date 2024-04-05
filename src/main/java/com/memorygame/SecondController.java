@@ -36,9 +36,8 @@ public class SecondController {
 
     @FXML
     private Label text_enter;
-
-    boolean ready = false;
     ServerThread st;
+    EndSingleton es = EndSingleton.getInstance();
 
     @FXML
     void back(ActionEvent event) throws IOException {
@@ -47,6 +46,10 @@ public class SecondController {
 
     @FXML
     void send(ActionEvent event) throws IOException, InterruptedException {
+        es.setText_enter(text_enter);
+        es.setInvalid1(invalid1);
+        es.setInvalid2(invalid2);
+        es.setCode_field(code_field);
         String code = code_field.getText();
         System.out.println(code);
         System.out.println(Integer.valueOf(code));
@@ -54,7 +57,6 @@ public class SecondController {
         //    serverSocket = new ServerSocket(Integer.valueOf(code));
         st = new ServerThread("client", code, 0, event);
         st.start();
-        st.first = false;
         /*Thread.sleep(10000);
         System.out.println(s.ready);
         /*ReadyThread r = new ReadyThread(event, s);

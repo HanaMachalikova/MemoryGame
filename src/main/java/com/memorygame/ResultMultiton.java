@@ -7,7 +7,7 @@ public class ResultMultiton {
     private boolean failed;
     private long time;
 
-    public ResultMultiton(boolean failed, long time) {
+    public ResultMultiton(boolean failed, int time) {
         this.failed = failed;
         this.time = time;
     }

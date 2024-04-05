@@ -27,7 +27,7 @@
                                 <Font size="15.0" />
                             </font>
                         </Label>
-                        <Label fx:id="time" alignment="CENTER" layoutX="174.0" layoutY="35.0" prefHeight="27.0" prefWidth="75.0" text="Time: " textAlignment="CENTER">
+                        <Label fx:id="time" alignment="CENTER" layoutX="174.0" layoutY="35.0" prefHeight="27.0" prefWidth="75.0" text="Time: " visible="false" textAlignment="CENTER">
                             <font>
                                 <Font size="15.0" />
                             </font>
