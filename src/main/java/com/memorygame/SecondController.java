@@ -2,16 +2,15 @@ package com.memorygame;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
 import java.io.*;
 
+/**
+ * Controller for Second.fxml
+ * Need to write down code creating connection between two players
+ * After sending right code this player represents client
+ */
 public class SecondController {
     @FXML
     private TextField code_field;

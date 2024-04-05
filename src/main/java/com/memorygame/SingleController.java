@@ -9,6 +9,9 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
+/**
+ * Controller for Single.fxml taking care of the whole single player game
+ */
 public class SingleController {
     private int index;
     private final char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
@@ -27,10 +30,8 @@ public class SingleController {
     @FXML
     private Button start;
 
-
     @FXML
     private Label key;
-
 
     @FXML
     private Label time_number;

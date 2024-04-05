@@ -4,6 +4,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * Singleton class for making variables accessible from different classes
+ */
 public class EndSingleton {
     private static EndSingleton single_instance = null;
 

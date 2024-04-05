@@ -2,6 +2,9 @@ package com.memorygame;
 
 import java.util.HashMap;
 
+/**
+ * Multiton class for making messages for server connection accessible from different classes
+ */
 public class MsgMultiton {
     private static final HashMap<String, MsgMultiton> instances = new HashMap<>();
     private String message;

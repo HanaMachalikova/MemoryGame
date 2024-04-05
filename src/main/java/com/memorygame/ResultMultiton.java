@@ -2,6 +2,11 @@ package com.memorygame;
 
 import java.util.HashMap;
 
+/**
+ * Class using multiton for accessing variables for other classes
+ * These variables refer to result finished level in multiplayer mode
+ * Key in the HashMap is level of which results are wanted
+ */
 public class ResultMultiton {
     private static final HashMap<String, ResultMultiton> instances = new HashMap<>();
     private boolean failed;

@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 
 import java.io.IOException;
 
+/**
+ * Controller for Home.fxml – Homepage
+ */
 public class HomeController {
 
     OpenWindow op = new OpenWindow();

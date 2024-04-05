@@ -2,25 +2,21 @@ package com.memorygame;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for Multi.fxml – scene with multiplayer game
+ */
 public class MultiController implements Initializable {
-    @FXML
-    private Button back;
-
     @FXML
     private Label finished;
 
@@ -28,17 +24,7 @@ public class MultiController implements Initializable {
     private Label game_over;
 
     @FXML
-    private Button home;
-
-    @FXML
     private Label key;
-
-    @FXML
-    private Label lastLevel;
-
-    @FXML
-    private Label level;
-
     @FXML
     private Label level_number;
 
@@ -90,8 +76,6 @@ public class MultiController implements Initializable {
     @FXML
     private Label you;
     private final char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-    private int coordinateX;
-    private int coordinateY;
     private int sc_number = 0;
     private String letters = "";
     private String answer = "";
@@ -100,9 +84,7 @@ public class MultiController implements Initializable {
     private int letterOrder = 0;
     private long startTime;
     private long measuredTime;
-    private String msg;
-    private MsgMultiton mm;
-    private ResultMultiton rm;
+    OpenWindow op = new OpenWindow();
     private final EndSingleton es = EndSingleton.getInstance();
 
 
@@ -117,12 +99,16 @@ public class MultiController implements Initializable {
 
     }
 
+    /**
+     * Setting properties for the letter which is player supposed to press on keyboard
+     */
     void startGame(){
+        int coordinateX = (int) (Math.random() * (pane.getWidth() - pane.getLayoutY() - key.getWidth())+ 1 + pane.getLayoutY());
+        int coordinateY = (int) (Math.random() * (pane.getHeight() - pane.getLayoutX() - key.getHeight())+ 1 + pane.getLayoutX());
         letters = "";
         answer = "";
         startTime = System.currentTimeMillis();
         score_number.setText(Integer.toString(sc_number));
-        propertiesOfButton();
         key.setVisible(true);
         key.setLayoutX(coordinateX);
         key.setLayoutY(coordinateY);
@@ -130,15 +116,21 @@ public class MultiController implements Initializable {
             letters += String.valueOf(alphabet[(int) (Math.random() * (alphabet.length))]);
         }
         key.setText(letters);
-        //System.out.println("X: " + coordinateX);
-        //System.out.println("Y: " + coordinateY);
-        //stopWatch();
     }
 
+    /**
+     * A method controlling if any key on keyboard has been pressed
+     * Checking if pressed key is same as displayed letter
+     * Setting messages for server connection through MsgMultiton
+     * @param event KeyEvent checking keyboard for any activity
+     */
     @FXML
     public void typed_key(KeyEvent event) {
+        String msg;
         letterOrder++;
         answer += event.getText();
+        MsgMultiton mm;
+        ResultMultiton rm;
         if ((letterOrder == lvl) && answer.equals(letters)) {
             key.setVisible(false);
             letterOrder = 0;
@@ -234,32 +226,18 @@ public class MultiController implements Initializable {
 
     @FXML
     void go_home(ActionEvent event) throws IOException {
-        showWindow(event, "Home.fxml", "Home");
+        op.showWindow(event, "Home.fxml", "Home");
     }
 
     @FXML
     void go_back(ActionEvent event) throws IOException {
-        showWindow(event, "NewGame.fxml", "New Game");
+        op.showWindow(event, "NewGame.fxml", "New Game");
     }
 
-    void showWindow(ActionEvent event, String resource, String title) throws IOException {
-        Node source = (Node) event.getSource();
-        Stage primarystage = (Stage) source.getScene().getWindow();
-        primarystage.close();
-        FXMLLoader fxmlLoader = new FXMLLoader(TypingGame.class.getResource(resource));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-        stage.setTitle(title);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    void propertiesOfButton() {
-        coordinateX = (int) (Math.random() * (pane.getWidth() - pane.getLayoutY() - key.getWidth())+ 1 + pane.getLayoutY());
-        coordinateY = (int) (Math.random() * (pane.getHeight() - pane.getLayoutX() - key.getHeight())+ 1 + pane.getLayoutX());
-
-    }
-
+    /**
+     * Overriding method initialize which is launched when MultiController if firstly loaded
+     * Initialising  variables for EndSingleton
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         es.setNext_level(next_level);

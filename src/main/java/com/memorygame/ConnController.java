@@ -2,15 +2,14 @@ package com.memorygame;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ *  Controller for Connection.fxml
+ *  Players choose which one they want to be (first or second) here
+ *  Only in multiplayer mode
+ */
 public class ConnController {
     OpenWindow op = new OpenWindow();
 

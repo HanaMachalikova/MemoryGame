@@ -2,34 +2,12 @@ package com.memorygame;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 
-
+/**
+ * Controller for NewGame.fxml where player decides which mode he wants to play
+ */
 public class NewGameController {
-    @FXML
-    private HBox mody;
-
-    @FXML
-    private Button multiplayer;
-
-    @FXML
-    private Label new_game_label;
-
-    @FXML
-    private Button singleplayer;
-
-    @FXML
-    private Button back;
-
-
     @FXML
     void multi_game(ActionEvent event) throws IOException {
         OpenWindow ow = new OpenWindow();
@@ -50,17 +28,4 @@ public class NewGameController {
         ow.showWindow(event, "Home.fxml", "Home");
 
     }
-
-    void showWindow(ActionEvent event, String resource, String title) throws IOException {
-        Node source = (Node)  event.getSource();
-        Stage primaryStage  = (Stage) source.getScene().getWindow();
-        primaryStage.close();
-        FXMLLoader fxmlLoader = new FXMLLoader(TypingGame.class.getResource(resource));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-        stage.setTitle(title);
-        stage.setScene(scene);
-        stage.show();
-    }
-
 }

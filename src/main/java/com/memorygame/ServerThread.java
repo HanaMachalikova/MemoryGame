@@ -7,6 +7,12 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * Thread class in charge of the server - client connection
+ * Only at multiplayer mode
+ * Sends and accepts messages about the game
+ * Checks who won/lost last level and the whole game
+ */
 public class ServerThread extends Thread {
 
     String role;
@@ -60,6 +66,11 @@ public class ServerThread extends Thread {
         }
     }
 
+    /**
+     * Method in charge of server part of connection
+     * Accepts messages from client and send others there
+     * @param portNumber for the server creation, needed for making connection with client
+     */
     public void server(int portNumber) throws IOException {
         Socket socket = null;
         InputStreamReader inputStreamReader = null;
@@ -108,11 +119,11 @@ public class ServerThread extends Thread {
                     es.getNext_level().setVisible(true);
                     if (rm.isFailed() && client[0].equals("f")) {
                         gameResult("You both failed!", true, true, String.valueOf(rm.getTime()), client[1]);
-                    } else if (rm.isFailed() || (rm.getTime() < Integer.valueOf(client[1]))) {
+                    } else if (rm.isFailed() || (rm.getTime() < Integer.parseInt(client[1]))) {
                         gameResult("You lost!", true, false, String.valueOf(rm.getTime()), client[1]);
-                    } else if (client[0].equals("f") || (rm.getTime() > Integer.valueOf(client[1]))) {
+                    } else if (client[0].equals("f") || (rm.getTime() > Integer.parseInt(client[1]))) {
                         gameResult("You won!", false, true, String.valueOf(rm.getTime()), client[1]);
-                    } else if (rm.getTime() == Integer.valueOf(client[1])) {
+                    } else if (rm.getTime() == Integer.parseInt(client[1])) {
                         gameResult("It's a draw!", false, false, String.valueOf(rm.getTime()), client[1]);
 
                     }
@@ -140,6 +151,11 @@ public class ServerThread extends Thread {
         }
     }
 
+    /**
+     * Method in charge of client part of connection
+     * Accepts messages from server and send others there
+     * @param portNumber needed for making connection with server
+     */
     public void client(String portNumber) {
         Socket socket = null;
         InputStreamReader inputStreamReader = null;
@@ -149,7 +165,7 @@ public class ServerThread extends Thread {
 
 
         try {
-            socket = new Socket("localhost", Integer.valueOf(portNumber));
+            socket = new Socket("localhost", Integer.parseInt(portNumber));
             inputStreamReader = new InputStreamReader(socket.getInputStream());
             outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
 
@@ -181,11 +197,11 @@ public class ServerThread extends Thread {
                 es.getNext_level().setVisible(true);
                 if (rm.isFailed() && server[0].equals("f")) {
                     gameResult("You both failed!", true, true, String.valueOf(rm.getTime()), server[1]);
-                } else if (rm.isFailed() || (rm.getTime() < Integer.valueOf(server[1]))) {
+                } else if (rm.isFailed() || (rm.getTime() < Integer.parseInt(server[1]))) {
                     gameResult("You lost!", true, false, String.valueOf(rm.getTime()), server[1]);
-                } else if (server[0].equals("f") || (rm.getTime() > Integer.valueOf(server[1]))) {
+                } else if (server[0].equals("f") || (rm.getTime() > Integer.parseInt(server[1]))) {
                     gameResult("You won!", false, true, String.valueOf(rm.getTime()), server[1]);
-                } else if (rm.getTime() == Integer.valueOf(server[1])) {
+                } else if (rm.getTime() == Integer.parseInt(server[1])) {
                     gameResult("It's a draw!", false, false, String.valueOf(rm.getTime()), server[1]);
                 }
                 level++;
@@ -222,6 +238,14 @@ public class ServerThread extends Thread {
         }
     }
 
+    /**
+     * Setting results from both players to scene of the game
+     * @param result text of sign where is result of the last level
+     * @param you if player lost
+     * @param opponent if opponent lost
+     * @param yTime time in which player finished last level
+     * @param oTime time in which opponent finished last level
+     */
     public void gameResult(String result, boolean you, boolean opponent, String yTime, String oTime) {
         Platform.runLater(() -> {
             es.getY_win().setVisible(false);
@@ -245,6 +269,11 @@ public class ServerThread extends Thread {
         });
     }
 
+    /**
+     * Setting final results of the game on the game scene
+     * @param you how many times player won
+     * @param opponent how many times opponent won
+     */
     public void finalResult(int you, int opponent) {
         Platform.runLater(() -> {
             es.getGame_over().setText("Game finished");

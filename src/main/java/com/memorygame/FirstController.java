@@ -2,21 +2,16 @@ package com.memorygame;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
-
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
 
+/**
+ * Controller for First.fxml
+ * Generating code for creating connection between two players
+ * After generation this player represents server
+ */
 public class FirstController {
-
-    private int portNumber;
-
     @FXML
     private Label code;
 
@@ -38,6 +33,7 @@ public class FirstController {
 
     @FXML
     void generate(ActionEvent event) {
+        int portNumber;
         generator.setVisible(false);
         portNumber = (int) ((Math.random() * 2000) + 1024);
         text_code.setVisible(true);

@@ -9,18 +9,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Class with one method enabling opening new scene
+ * Many classes use this method so this is more dry
+ */
 public class OpenWindow {
-
-    ActionEvent event;
-    String resource;
-    String title;
-
-
     void showWindow(ActionEvent event, String resource, String title) throws IOException {
         Platform.runLater(() -> {
             Node source = (Node) event.getSource();
-            Stage primarystage = (Stage) source.getScene().getWindow();
-            primarystage.close();
+            Stage primaryStage = (Stage) source.getScene().getWindow();
+            primaryStage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(TypingGame.class.getResource(resource));
             Scene scene;
             try {

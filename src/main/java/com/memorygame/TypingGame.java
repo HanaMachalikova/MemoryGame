@@ -7,6 +7,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Main class of the whole application which launches the first scene and starts the whole program
+ */
 public class TypingGame extends Application {
     @Override
     public void start(Stage stage) throws IOException {
