@@ -39,6 +39,7 @@ public class ServerThread extends Thread {
     ;
 
     public void run() {
+        System.out.println(role);
         switch (role) {
             case "server":
                 try {
@@ -95,6 +96,7 @@ public class ServerThread extends Thread {
                             System.out.println(msgFromServer);
                             msgFromServer = "";
                             break;
+
                         }
                     }
                     while (true) {
@@ -106,17 +108,15 @@ public class ServerThread extends Thread {
                     rm = ResultMultiton.getInstance(String.valueOf(level));
                     String[] client = msgClient.split(";");
                     es.getNext_level().setVisible(true);
+                    System.out.println("me: " + rm.isFailed());
+                    System.out.println("opponent: " + client[0]);
                     if (rm.isFailed() && client[0].equals("f")) {
                         gameResult("You both failed!", false, false, String.valueOf(rm.getTime()), client[1]);
-                    } else if (rm.isFailed() || (rm.getTime() < Integer.valueOf(client[1]))) {
-                        y++;
-                        gameResult("You lost!", true, false, String.valueOf(rm.getTime()), client[1]);
-                    } else if (client[0].equals("f") || (rm.getTime() > Integer.valueOf(client[1]))) {
-                        o++;
-                        gameResult("You won!", false, true, String.valueOf(rm.getTime()), client[1]);
+                    } else if (rm.isFailed() || (rm.getTime() > Integer.valueOf(client[1]))) {
+                        gameResult("You won!", true, false, String.valueOf(rm.getTime()), client[1]);
+                    } else if (client[0].equals("f") || (rm.getTime() < Integer.valueOf(client[1]))) {
+                        gameResult("You lost!", false, true, String.valueOf(rm.getTime()), client[1]);
                     } else if (rm.getTime() == Integer.valueOf(client[1])) {
-                        o++;
-                        y++;
                         gameResult("It's a draw!", true, true, String.valueOf(rm.getTime()), client[1]);
                     }
                     es.setReady(true);
@@ -190,6 +190,8 @@ public class ServerThread extends Thread {
                 rm = ResultMultiton.getInstance(String.valueOf(level));
                 String[] server = msgServer.split(";");
                 es.getNext_level().setVisible(true);
+                System.out.println("me: " + rm.isFailed());
+                System.out.println("opponent: " + server[0]);
                 if (rm.isFailed() && server[0].equals("f")) {
                     gameResult("You both failed!", false, false, String.valueOf(rm.getTime()), server[1]);
                 } else if (rm.isFailed() || (rm.getTime() > Integer.valueOf(server[1]))) {
@@ -234,19 +236,24 @@ public class ServerThread extends Thread {
         }
     }
 
-    public void gameResult(String result, boolean you, boolean opponent, String oTime, String yTime) {
+    public void gameResult(String result, boolean you, boolean opponent, String yTime, String oTime) {
         Platform.runLater(() -> {
+            System.out.println(result);
+            System.out.println("you: " + you);
+            System.out.println("op: " + opponent);
+            System.out.println("op Time: " + oTime);
+            System.out.println("you time: " + yTime);
             es.getY_win().setVisible(false);
             es.getO_win().setVisible(false);
             es.getY_lose().setVisible(false);
             es.getO_lose().setVisible(false);
             es.getResult().setText(result);
-            if (!you) {
+            if (you) {
                 es.getY_win().setVisible(true);
             } else {
                 es.getY_lose().setVisible(true);
             }
-            if (!opponent) {
+            if (opponent) {
                 es.getO_win().setVisible(true);
             } else {
                 es.getO_lose().setVisible(true);
