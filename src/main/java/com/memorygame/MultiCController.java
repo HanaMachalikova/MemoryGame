@@ -182,7 +182,7 @@ public class MultiCController {
                     answerOrder = 0;
                     failed = false;
                     key.setVisible(false);
-                    if (lvl <= 5) {
+                    if (lvl <= 3) {
                         key.setVisible(false);
                         finished.setVisible(true);
                         finished.setText("You finished!");
@@ -201,7 +201,7 @@ public class MultiCController {
                                 }
                             }*/
                     }
-                    if (lvl == 6) {
+                    if (lvl == 4) {
                         key.setVisible(false);
                         game_over.setVisible(true);
                         game_over.setText("Game finished");
@@ -225,7 +225,7 @@ public class MultiCController {
                 finished.setText("You failed!");
                 result.setVisible(true);
                 result.setText("Waiting for your opponent");
-                lvl = 1;
+                lvl++;
                 level_number.setText("1");
                 answerOrder = 0;
                 failed = true;
