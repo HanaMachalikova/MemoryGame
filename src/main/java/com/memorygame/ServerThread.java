@@ -23,6 +23,9 @@ public class ServerThread extends Thread {
     public static String msgFromServer = "";
     public int level = 1;
 
+    public int y = 0;
+    public int o = 0;
+
     public ServerThread(String role, String cport, int sport, ActionEvent event) {
         this.role = role;
         this.cport = cport;
@@ -128,10 +131,14 @@ public class ServerThread extends Thread {
                     if (rm.isFailed() && client[0].equals("f")) {
                         gameResult("You both failed!", false, false, String.valueOf(rm.getTime()), client[1]);
                     } else if (rm.isFailed() || (rm.getTime() < Integer.valueOf(client[1]))) {
+                        o++;
                         gameResult("You lost!", false, true, String.valueOf(rm.getTime()), client[1]);
                     } else if (client[0].equals("f") || (rm.getTime() > Integer.valueOf(client[1]))) {
+                        y++;
                         gameResult("You won!", true, false, String.valueOf(rm.getTime()), client[1]);
                     } else if (rm.getTime() == Integer.valueOf(client[1])) {
+                        o++;
+                        y++;
                         gameResult("It's a draw!", true, true, String.valueOf(rm.getTime()), client[1]);
                     }
                     cs.setReady(true);
@@ -223,6 +230,9 @@ public class ServerThread extends Thread {
                 if (msgFromClient.equalsIgnoreCase("BYE"))
                     break;
             }
+            finalResult(y, o);
+            y = 0;
+            o = 0;
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -259,6 +269,20 @@ public class ServerThread extends Thread {
             }
             cs.getYou().setText(yTime);
             cs.getOpponent().setText(oTime);
+            cs.getNo_previous().setVisible(false);
+
+        });
+    }
+
+    public void finalResult (int you, int opponent) {
+        Platform.runLater(() -> {
+            if (you == opponent) {
+                cs.getResult().setText("Whole game it's a draw!");
+            } else if (you > opponent) {
+                cs.getResult().setText("You won the whole game!");
+            } else {
+                cs.getResult().setText("You lost the whole game!");
+            }
 
         });
     }

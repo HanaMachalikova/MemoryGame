@@ -123,6 +123,7 @@ public class MultiSController {
         cs.setY_win(y_win);
         cs.setYou(you);
         cs.setResult(result);
+        cs.setNo_previous(no_previous);
         sc_number = 0;
         measuredTime = 0;
         start.setVisible(false);

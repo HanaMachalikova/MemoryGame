@@ -14,8 +14,8 @@ public class ConSingleton {
 
     public Label you;
     public Label opponent;
-    public long time;
     public Label result;
+    public Label no_previous;
     public boolean ready = false;
 
     public static ConSingleton getInstance() {
@@ -25,8 +25,8 @@ public class ConSingleton {
         return single_instance;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public void setNo_previous(Label no_previous) {
+        this.no_previous = no_previous;
     }
 
     public void setNext_level(Button next_level) {
@@ -65,9 +65,6 @@ public class ConSingleton {
         this.result = result;
     }
 
-    public long getTime() {
-        return time;
-    }
 
     public void setReady(boolean ready) {
         this.ready = ready;
@@ -101,4 +98,7 @@ public class ConSingleton {
         return o_lose;
     }
 
+    public Label getNo_previous() {
+        return no_previous;
+    }
 }
