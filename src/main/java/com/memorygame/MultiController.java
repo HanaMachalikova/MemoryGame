@@ -138,12 +138,13 @@ public class MultiController implements Initializable {
             answerOrder++;
             if (answerOrder == 5) {
                 measuredTime = System.currentTimeMillis() - startTime;
+                measuredTime += 10;
                 y_lose.setVisible(false);
                 y_win.setVisible(false);
                 o_lose.setVisible(false);
                 o_win.setVisible(false);
                 time_number.setVisible(true);
-                time_number.setText(measuredTime + " ms");
+                time_number.setText((measuredTime / 1000) + "," + (measuredTime % 1000) + " s");
                 time.setVisible(true);
                 rm = ResultMultiton.getInstance(String.valueOf(lvl));
                 msg = "p;" + (measuredTime);
