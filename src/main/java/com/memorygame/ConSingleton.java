@@ -7,9 +7,13 @@ public class ConSingleton {
     private static ConSingleton single_instance = null;
 
     public Button next_level;
+    public Label y_win;
+    public Label y_lose;
+    public Label o_win;
+    public Label o_lose;
 
-    public boolean you;
-    public boolean opponent;
+    public Label you;
+    public Label opponent;
     public long time;
     public Label result;
     public boolean ready = false;
@@ -29,11 +33,27 @@ public class ConSingleton {
         this.next_level = next_level;
     }
 
-    public void setYou(boolean you) {
+    public void setY_win(Label y_win) {
+        this.y_win = y_win;
+    }
+
+    public void setY_lose(Label y_lose) {
+        this.y_lose = y_lose;
+    }
+
+    public void setO_win(Label o_win) {
+        this.o_win = o_win;
+    }
+
+    public void setO_lose(Label o_lose) {
+        this.o_lose = o_lose;
+    }
+
+    public void setYou(Label you) {
         this.you = you;
     }
 
-    public void setOpponent(boolean opponent) {
+    public void setOpponent(Label opponent) {
         this.opponent = opponent;
     }
 
@@ -57,15 +77,28 @@ public class ConSingleton {
         return next_level;
     }
 
-    public boolean isYou() {
+    public Label getYou() {
         return you;
     }
 
-    public boolean isOpponent() {
+    public Label getOpponent() {
         return opponent;
     }
 
-    public boolean isReady() {
-        return ready;
+    public Label getY_win() {
+        return y_win;
     }
+
+    public Label getY_lose() {
+        return y_lose;
+    }
+
+    public Label getO_win() {
+        return o_win;
+    }
+
+    public Label getO_lose() {
+        return o_lose;
+    }
+
 }

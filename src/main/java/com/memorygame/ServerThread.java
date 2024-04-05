@@ -126,23 +126,13 @@ public class ServerThread extends Thread {
                     System.out.println("1: " + client[1]);
                     cs.getNext_level().setVisible(true);
                     if (rm.isFailed() && client[0].equals("f")) {
-                        cs.setOpponent(false);
-                        cs.setYou(false);
-                        gameResult("You both failed!");
+                        gameResult("You both failed!", false, false, String.valueOf(rm.getTime()), client[1]);
                     } else if (rm.isFailed() || (rm.getTime() < Integer.valueOf(client[1]))) {
-                        cs.setOpponent(true);
-                        cs.setYou(false);
-                        cs.setTime(Integer.valueOf(client[1]));
-                        gameResult("You lost!");
+                        gameResult("You lost!", false, true, String.valueOf(rm.getTime()), client[1]);
                     } else if (client[0].equals("f") || (rm.getTime() > Integer.valueOf(client[1]))) {
-                        cs.setOpponent(false);
-                        cs.setYou(true);
-                        gameResult("You won!");
+                        gameResult("You won!", true, false, String.valueOf(rm.getTime()), client[1]);
                     } else if (rm.getTime() == Integer.valueOf(client[1])) {
-                        cs.setOpponent(true);
-                        cs.setYou(true);
-                        cs.setTime(Integer.valueOf(client[1]));
-                        gameResult("It's a draw!");
+                        gameResult("It's a draw!", true, true, String.valueOf(rm.getTime()), client[1]);
                     }
                     cs.setReady(true);
                     if (msgClient.equalsIgnoreCase("BYE")) {
@@ -220,23 +210,13 @@ public class ServerThread extends Thread {
                 System.out.println("1: " + server[1]);
                 cs.getNext_level().setVisible(true);
                 if (rm.isFailed() && server[0].equals("f")) {
-                    cs.setOpponent(false);
-                    cs.setYou(false);
-                    gameResult("You both failed!");
+                    gameResult("You both failed!", false, false, String.valueOf(rm.getTime()), server[1]);
                 } else if (rm.isFailed() || (rm.getTime() < Integer.valueOf(server[1]))) {
-                    cs.setOpponent(true);
-                    cs.setYou(false);
-                    cs.setTime(Integer.valueOf(server[1]));
-                    gameResult("You lost!");
+                    gameResult("You lost!", false, true, String.valueOf(rm.getTime()), server[1]);
                 } else if (server[0].equals("f") || (rm.getTime() > Integer.valueOf(server[1]))) {
-                    cs.setOpponent(false);
-                    cs.setYou(true);
-                    gameResult("You won!");
+                    gameResult("You won!", true, false, String.valueOf(rm.getTime()), server[1]);
                 } else if (rm.getTime() == Integer.valueOf(server[1])) {
-                    cs.setOpponent(true);
-                    cs.setYou(true);
-                    cs.setTime(Integer.valueOf(server[1]));
-                    gameResult("It's a draw!");
+                    gameResult("It's a draw!", true, true, String.valueOf(rm.getTime()), server[1]);
                 }
                 cs.setReady(true);
                 level++;
@@ -264,9 +244,23 @@ public class ServerThread extends Thread {
         }
     }
 
-    public void gameResult (String result) {
+    public void gameResult (String result, boolean you, boolean opponent, String yTime, String oTime) {
         Platform.runLater(() -> {
             cs.getResult().setText(result);
+            if (you) {
+                cs.getY_win().setVisible(true);
+            } else {
+                cs.getY_lose().setVisible(true);
+            }
+            if (opponent) {
+                cs.getO_win().setVisible(true);
+            } else {
+                cs.getO_lose().setVisible(true);
+            }
+            cs.getYou().setText(yTime);
+            cs.getOpponent().setText(oTime);
+
         });
     }
+
 }
