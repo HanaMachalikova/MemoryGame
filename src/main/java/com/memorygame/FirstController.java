@@ -50,7 +50,7 @@ public class FirstController {
         /*Thread h = new Thread(() -> {
             if (prepared() == true) {
                 try {
-                    showWindow(event, "MultiS.fxml", "Multiplayer player one");
+                    showWindow(event, "Multi.fxml", "Multiplayer player one");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -61,7 +61,7 @@ public class FirstController {
         st.start();
         st.first = true;
         System.out.println(portNumber);
-        /*OpenWindow ow = new OpenWindow(event, "MultiS.fxml", "Multiplayer");
+        /*OpenWindow ow = new OpenWindow(event, "Multi.fxml", "Multiplayer");
         ow.showWindow();
         /*ReadyThread r = new ReadyThread(event, s);
         r.start();
@@ -74,7 +74,7 @@ public class FirstController {
             //if (prepared(v) == true) {
                 //try {
                     //System.out.println("ready");
-                    //showWindow(event, "MultiS.fxml", "Multiplayer player one");
+                    //showWindow(event, "Multi.fxml", "Multiplayer player one");
                 /*} catch (IOException e) {
                     throw new RuntimeException(e);
                 }*/
@@ -83,7 +83,7 @@ public class FirstController {
         //Thread.sleep(500);
         /*while (true){
             if (v.ready == true) {
-                showWindow(event, "MultiS.fxml", "Multiplayer");
+                showWindow(event, "Multi.fxml", "Multiplayer");
                 break;
             }
             Thread.sleep(1);

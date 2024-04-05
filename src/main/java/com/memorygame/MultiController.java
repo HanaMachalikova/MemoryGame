@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MultiSController {
+public class MultiController {
     @FXML
     private Button back;
 

@@ -186,7 +186,7 @@ public class ServerThread extends Thread {
             bufferedWriter.write(r);
             bufferedWriter.newLine();
             bufferedWriter.flush();
-            OpenWindow ow = new OpenWindow(event, "MultiC.fxml", "Multiplayer");
+            OpenWindow ow = new OpenWindow(event, "Multi.fxml", "Multiplayer");
             ow.showWindow();
             String msgServer;
 
