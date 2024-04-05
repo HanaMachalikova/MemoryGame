@@ -3,8 +3,8 @@ package com.memorygame;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class ConSingleton {
-    private static ConSingleton single_instance = null;
+public class EndSingleton {
+    private static EndSingleton single_instance = null;
 
     public Button next_level;
     public Label y_win;
@@ -19,9 +19,9 @@ public class ConSingleton {
     public Label time;
     public boolean ready = false;
 
-    public static ConSingleton getInstance() {
+    public static EndSingleton getInstance() {
         if (single_instance == null)
-            single_instance = new ConSingleton();
+            single_instance = new EndSingleton();
 
         return single_instance;
     }

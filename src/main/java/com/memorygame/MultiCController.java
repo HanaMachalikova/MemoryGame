@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -111,22 +110,22 @@ public class MultiCController {
 
     private MsgMultiton mm;
     private ResultMultiton rm;
-    private ConSingleton cs = ConSingleton.getInstance();
+    private EndSingleton es = EndSingleton.getInstance();
 
 
 
     @FXML
     void start(ActionEvent event) throws InterruptedException {
-        cs.setNext_level(next_level);
-        cs.setO_lose(o_lose);
-        cs.setO_win(o_win);
-        cs.setOpponent(opponent);
-        cs.setY_lose(y_lose);
-        cs.setY_win(y_win);
-        cs.setYou(you);
-        cs.setResult(result);
-        cs.setNo_previous(no_previous);
-        cs.setTime(time_number);
+        es.setNext_level(next_level);
+        es.setO_lose(o_lose);
+        es.setO_win(o_win);
+        es.setOpponent(opponent);
+        es.setY_lose(y_lose);
+        es.setY_win(y_win);
+        es.setYou(you);
+        es.setResult(result);
+        es.setNo_previous(no_previous);
+        es.setTime(time_number);
         sc_number = 0;
         measuredTime = 0;
         start.setVisible(false);
@@ -188,13 +187,13 @@ public class MultiCController {
                         finished.setText("You finished!");
                         result.setVisible(true);
                         result.setText("Waiting for your opponent");
-                            /*if (cs.isReady()) {
-                                opponent.setText(String.valueOf(cs.getTime()));
-                                if (!cs.isOpponent() && !cs.isYou()) {
+                            /*if (es.isReady()) {
+                                opponent.setText(String.valueOf(es.getTime()));
+                                if (!es.isOpponent() && !es.isYou()) {
                                     result.setText("You both failed!");
-                                }else if (!cs.isOpponent()) {
+                                }else if (!es.isOpponent()) {
                                     result.setText("You won!");
-                                }else if (!cs.isYou()) {
+                                }else if (!es.isYou()) {
                                     result.setText("You lost!");
                                 } else {
                                     result.setText("It's a draw!");
