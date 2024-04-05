@@ -8,7 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -90,7 +89,7 @@ public class MultiController implements Initializable {
 
     @FXML
     private Label you;
-    private char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+    private final char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
     private int coordinateX;
     private int coordinateY;
     private int sc_number = 0;
@@ -104,7 +103,7 @@ public class MultiController implements Initializable {
     private String msg;
     private MsgMultiton mm;
     private ResultMultiton rm;
-    private EndSingleton es = EndSingleton.getInstance();
+    private final EndSingleton es = EndSingleton.getInstance();
 
 
     @FXML
@@ -137,7 +136,7 @@ public class MultiController implements Initializable {
     }
 
     @FXML
-    public void typed_key(KeyEvent event) throws InterruptedException {
+    public void typed_key(KeyEvent event) {
         letterOrder++;
         answer += event.getText();
         if ((letterOrder == lvl) && answer.equals(letters)) {
@@ -218,7 +217,7 @@ public class MultiController implements Initializable {
     }
 
     @FXML
-    void nextLevel(ActionEvent event) throws InterruptedException {
+    void nextLevel(ActionEvent event) {
         textField.requestFocus();
         lvl++;
         finished.setVisible(false);
@@ -247,7 +246,7 @@ public class MultiController implements Initializable {
         Node source = (Node) event.getSource();
         Stage primarystage = (Stage) source.getScene().getWindow();
         primarystage.close();
-        FXMLLoader fxmlLoader = new FXMLLoader(MemoryGame.class.getResource(resource));
+        FXMLLoader fxmlLoader = new FXMLLoader(TypingGame.class.getResource(resource));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setTitle(title);
@@ -272,10 +271,8 @@ public class MultiController implements Initializable {
         es.setYou(you);
         es.setResult(result);
         es.setNo_previous(no_previous);
-        es.setTime(time_number);
         es.setNew_game(new_game);
         es.setGame_over(game_over);
-        es.setFinished(finished);
 
     }
 }

@@ -27,7 +27,7 @@
                                 <Font size="15.0" />
                             </font>
                         </Label>
-                        <Label fx:id="time" alignment="CENTER" layoutX="174.0" layoutY="35.0" prefHeight="27.0" prefWidth="75.0" text="Time: " visible="false" textAlignment="CENTER">
+                        <Label fx:id="time" alignment="CENTER" layoutX="174.0" layoutY="35.0" prefHeight="27.0" prefWidth="75.0" text="Time: " textAlignment="CENTER" visible="false">
                             <font>
                                 <Font size="15.0" />
                             </font>
@@ -50,7 +50,7 @@
                                     </font>
                                 </Label>
                                 <TextField fx:id="textField" layoutX="39.0" layoutY="221.0" onKeyPressed="#typed_key" opacity="0.0" />
-                                <Label fx:id="game_over" layoutX="180.0" layoutY="150.0" text="Game Over" visible="false">
+                                <Label fx:id="game_over" layoutX="159.0" layoutY="150.0" prefHeight="30.0" prefWidth="155.0" text="Game Over" visible="false">
                                     <font>
                                         <Font size="20.0" />
                                     </font>
@@ -60,24 +60,24 @@
                                         <Font size="14.0" />
                                     </font>
                                 </Button>
-                                <Label fx:id="finished" layoutX="173.0" layoutY="135.0" text="Level finished!" visible="false">
-                                    <font>
-                                        <Font size="20.0" />
-                                    </font>
-                                </Label>
                                 <Button fx:id="next_level" layoutX="185.0" layoutY="271.0" mnemonicParsing="false" onAction="#nextLevel" text="Next level" visible="false">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
                                 </Button>
-                                <Label fx:id="result" alignment="CENTER" layoutX="111.0" layoutY="205.0" prefHeight="32.0" prefWidth="245.0" text="  " visible="false">
+                                <Label fx:id="finished" layoutX="117.0" layoutY="135.0" prefHeight="30.0" prefWidth="238.0" text="Level finished!" visible="false">
+                                    <font>
+                                        <Font size="20.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="result" alignment="CENTER" layoutX="111.0" layoutY="205.0" prefHeight="32.0" prefWidth="254.0" text="  " visible="false">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
                                 </Label>
                             </children>
                         </Pane>
-                        <Label fx:id="level_number" layoutX="382.0" layoutY="33.0" prefHeight="30.0" prefWidth="81.0" text="">
+                        <Label fx:id="level_number" layoutX="382.0" layoutY="33.0" prefHeight="30.0" prefWidth="81.0" >
                             <font>
                                 <Font size="16.0" />
                             </font>

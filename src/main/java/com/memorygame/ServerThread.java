@@ -26,6 +26,9 @@ public class ServerThread extends Thread {
 
     public boolean running = true;
 
+    OpenWindow op = new OpenWindow();
+
+
     public ServerThread(String role, String cport, int sport, ActionEvent event) {
         this.role = role;
         this.cport = cport;
@@ -35,8 +38,7 @@ public class ServerThread extends Thread {
 
     private MsgMultiton mm;
     private ResultMultiton rm;
-    private EndSingleton es = EndSingleton.getInstance();
-    ;
+    private final EndSingleton es = EndSingleton.getInstance();
 
     public void run() {
         while (running) {
@@ -81,8 +83,7 @@ public class ServerThread extends Thread {
                     msgClient = bufferedReader.readLine();
                     if (msgClient.equalsIgnoreCase("ready")) {
                         ready = true;
-                        OpenWindow ow = new OpenWindow(event, "Multi.fxml", "Multiplayer");
-                        ow.showWindow();
+                        op.showWindow(event, "Multi.fxml", "Multiplayer");
                     }
                     break;
                 }
@@ -101,17 +102,10 @@ public class ServerThread extends Thread {
 
                         }
                     }
-                    while (true) {
-                        msgClient = bufferedReader.readLine();
-                        if (!msgClient.isEmpty() && (msgClient != null)) {
-                            break;
-                        }
-                    }
+                    msgClient = bufferedReader.readLine();
                     rm = ResultMultiton.getInstance(String.valueOf(level));
                     String[] client = msgClient.split(";");
                     es.getNext_level().setVisible(true);
-                    System.out.println("me: " + rm.isFailed());
-                    System.out.println("opponent: " + client[0]);
                     if (rm.isFailed() && client[0].equals("f")) {
                         gameResult("You both failed!", true, true, String.valueOf(rm.getTime()), client[1]);
                     } else if (rm.isFailed() || (rm.getTime() < Integer.valueOf(client[1]))) {
@@ -120,10 +114,7 @@ public class ServerThread extends Thread {
                         gameResult("You won!", false, true, String.valueOf(rm.getTime()), client[1]);
                     } else if (rm.getTime() == Integer.valueOf(client[1])) {
                         gameResult("It's a draw!", false, false, String.valueOf(rm.getTime()), client[1]);
-                    }
-                    es.setReady(true);
-                    if (msgClient.equalsIgnoreCase("BYE")) {
-                        break;
+
                     }
                     level++;
                     if (level == 3) {
@@ -134,20 +125,17 @@ public class ServerThread extends Thread {
                     }
 
                 }
-                socket.close();
-                inputStreamReader.close();
-                outputStreamWriter.close();
-                bufferedReader.close();
-                bufferedWriter.close();
-                running = false;
             } catch (IOException e) {
-                socket.close();
-                inputStreamReader.close();
-                outputStreamWriter.close();
-                bufferedReader.close();
-                bufferedWriter.close();
-                System.out.println("Chyba, vše ukončeno");
-                running = false;
+                try {
+                    socket.close();
+                    inputStreamReader.close();
+                    outputStreamWriter.close();
+                    bufferedReader.close();
+                    bufferedWriter.close();
+                    running = false;
+                } catch (NullPointerException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
     }
@@ -172,12 +160,10 @@ public class ServerThread extends Thread {
             bufferedWriter.write(r);
             bufferedWriter.newLine();
             bufferedWriter.flush();
-            OpenWindow ow = new OpenWindow(event, "Multi.fxml", "Multiplayer");
-            ow.showWindow();
+            op.showWindow(event, "Multi.fxml", "Multiplayer");
             String msgServer;
 
             while (level <= 3) {
-
                 while (true) {
                     mm = MsgMultiton.getInstance(String.valueOf(level));
                     msgFromClient = mm.getMessage();
@@ -185,22 +171,14 @@ public class ServerThread extends Thread {
                         bufferedWriter.write(msgFromClient);
                         bufferedWriter.newLine();
                         bufferedWriter.flush();
-                        System.out.println(msgFromClient);
                         msgFromClient = "";
                         break;
                     }
                 }
-                while (true) {
-                    msgServer = bufferedReader.readLine();
-                    if (!msgServer.isEmpty() && (msgServer != null)) {
-                        break;
-                    }
-                }
+                msgServer = bufferedReader.readLine();
                 rm = ResultMultiton.getInstance(String.valueOf(level));
                 String[] server = msgServer.split(";");
                 es.getNext_level().setVisible(true);
-                System.out.println("me: " + rm.isFailed());
-                System.out.println("opponent: " + server[0]);
                 if (rm.isFailed() && server[0].equals("f")) {
                     gameResult("You both failed!", true, true, String.valueOf(rm.getTime()), server[1]);
                 } else if (rm.isFailed() || (rm.getTime() < Integer.valueOf(server[1]))) {
@@ -211,8 +189,6 @@ public class ServerThread extends Thread {
                     gameResult("It's a draw!", false, false, String.valueOf(rm.getTime()), server[1]);
                 }
                 level++;
-                if (msgFromClient.equalsIgnoreCase("BYE"))
-                    break;
                 if (level == 3) {
                     finalResult(y, o);
                     y = 0;
@@ -248,11 +224,6 @@ public class ServerThread extends Thread {
 
     public void gameResult(String result, boolean you, boolean opponent, String yTime, String oTime) {
         Platform.runLater(() -> {
-            System.out.println(result);
-            System.out.println("you: " + you);
-            System.out.println("op: " + opponent);
-            System.out.println("op Time: " + oTime);
-            System.out.println("you time: " + yTime);
             es.getY_win().setVisible(false);
             es.getO_win().setVisible(false);
             es.getY_lose().setVisible(false);
@@ -271,8 +242,6 @@ public class ServerThread extends Thread {
             es.getYou().setText(yTime + " ms");
             es.getOpponent().setText(oTime + " ms");
             es.getNo_previous().setVisible(false);
-            System.out.println("You: " + you);
-            System.out.println("Opp: " + opponent);
         });
     }
 

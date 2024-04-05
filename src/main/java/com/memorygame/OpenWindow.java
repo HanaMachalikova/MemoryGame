@@ -15,19 +15,14 @@ public class OpenWindow {
     String resource;
     String title;
 
-    public OpenWindow(ActionEvent event, String resource, String title) {
-        this.event = event;
-        this.resource = resource;
-        this.title = title;
-    }
 
-    void showWindow() throws IOException {
+    void showWindow(ActionEvent event, String resource, String title) throws IOException {
         Platform.runLater(() -> {
             Node source = (Node) event.getSource();
             Stage primarystage = (Stage) source.getScene().getWindow();
             primarystage.close();
-            FXMLLoader fxmlLoader = new FXMLLoader(MemoryGame.class.getResource(resource));
-            Scene scene = null;
+            FXMLLoader fxmlLoader = new FXMLLoader(TypingGame.class.getResource(resource));
+            Scene scene;
             try {
                 scene = new Scene(fxmlLoader.load());
             } catch (IOException e) {

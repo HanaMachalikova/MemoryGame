@@ -1,24 +1,17 @@
 package com.memorygame;
 
-import com.memorygame.MemoryGame;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class SingleController {
     private int index;
-    private char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+    private final char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
     private int coordinateX;
     private int coordinateY;
     private int sc_number = 0;
@@ -45,6 +38,8 @@ public class SingleController {
     @FXML
     private Label game_over;
 
+    OpenWindow op = new OpenWindow();
+
     @FXML
     void new_game(ActionEvent event) {
         game_over.setVisible(false);
@@ -53,16 +48,16 @@ public class SingleController {
 
     @FXML
     void go_home(ActionEvent event) throws IOException {
-        showWindow(event, "Home.fxml", "Home");
+        op.showWindow(event, "Home.fxml", "Home");
     }
 
     @FXML
     void go_back(ActionEvent event) throws IOException {
-        showWindow(event, "NewGame.fxml", "New Game");
+        op.showWindow(event, "NewGame.fxml", "New Game");
     }
 
     @FXML
-    void start(ActionEvent event) throws InterruptedException {
+    void start(ActionEvent event) {
         sc_number = 0;
         measuredTime = 0;
         start.setVisible(false);
@@ -80,11 +75,9 @@ public class SingleController {
         key.setVisible(true);
         key.setLayoutX(coordinateX);
         key.setLayoutY(coordinateY);
-        //game = false;
         key.setText(String.valueOf(alphabet[index]));
         System.out.println("X: " + coordinateX);
         System.out.println("Y: " + coordinateY);
-        //stopWatch();
     }
 
 
@@ -111,18 +104,5 @@ public class SingleController {
         coordinateY = (int) (Math.random() * (pane.getHeight() - pane.getLayoutX() - key.getHeight())+ 1 + pane.getLayoutX());
 
     }
-
-    void showWindow(ActionEvent event, String resource, String title) throws IOException {
-        Node source = (Node)  event.getSource();
-        Stage primarystage  = (Stage) source.getScene().getWindow();
-        primarystage.close();
-        FXMLLoader fxmlLoader = new FXMLLoader(MemoryGame.class.getResource(resource));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-        stage.setTitle(title);
-        stage.setScene(scene);
-        stage.show();
-    }
-
 
 }

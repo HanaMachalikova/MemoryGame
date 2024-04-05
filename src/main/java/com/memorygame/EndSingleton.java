@@ -21,49 +21,14 @@ public class EndSingleton {
     public Label opponent;
     public Label result;
     public Label no_previous;
-    public Label time;
     public Button new_game;
     public Label game_over;
-    public Label finished;
-    public boolean ready = false;
 
     public static EndSingleton getInstance() {
         if (single_instance == null)
             single_instance = new EndSingleton();
 
         return single_instance;
-    }
-
-    public Label getFinished() {
-        return finished;
-    }
-
-    public void setFinished(Label finished) {
-        this.finished = finished;
-    }
-
-    public Label getTime() {
-        return time;
-    }
-
-    public Button getNew_game() {
-        return new_game;
-    }
-
-    public void setNew_game(Button new_game) {
-        this.new_game = new_game;
-    }
-
-    public Label getGame_over() {
-        return game_over;
-    }
-
-    public void setGame_over(Label game_over) {
-        this.game_over = game_over;
-    }
-
-    public void setTime(Label time) {
-        this.time = time;
     }
 
     public Label getText_enter() {
@@ -82,6 +47,50 @@ public class EndSingleton {
         return code_field;
     }
 
+    public Button getNext_level() {
+        return next_level;
+    }
+
+    public Label getY_win() {
+        return y_win;
+    }
+
+    public Label getY_lose() {
+        return y_lose;
+    }
+
+    public Label getO_win() {
+        return o_win;
+    }
+
+    public Label getO_lose() {
+        return o_lose;
+    }
+
+    public Label getYou() {
+        return you;
+    }
+
+    public Label getOpponent() {
+        return opponent;
+    }
+
+    public Label getResult() {
+        return result;
+    }
+
+    public Label getNo_previous() {
+        return no_previous;
+    }
+
+    public Button getNew_game() {
+        return new_game;
+    }
+
+    public Label getGame_over() {
+        return game_over;
+    }
+
     public void setText_enter(Label text_enter) {
         this.text_enter = text_enter;
     }
@@ -96,10 +105,6 @@ public class EndSingleton {
 
     public void setCode_field(TextField code_field) {
         this.code_field = code_field;
-    }
-
-    public void setNo_previous(Label no_previous) {
-        this.no_previous = no_previous;
     }
 
     public void setNext_level(Button next_level) {
@@ -130,48 +135,20 @@ public class EndSingleton {
         this.opponent = opponent;
     }
 
-    public Label getResult() {
-        return result;
-    }
-
     public void setResult(Label result) {
         this.result = result;
     }
 
-
-    public void setReady(boolean ready) {
-        this.ready = ready;
+    public void setNo_previous(Label no_previous) {
+        this.no_previous = no_previous;
     }
 
-    public Button getNext_level() {
-        return next_level;
+    public void setNew_game(Button new_game) {
+        this.new_game = new_game;
     }
 
-    public Label getYou() {
-        return you;
+    public void setGame_over(Label game_over) {
+        this.game_over = game_over;
     }
 
-    public Label getOpponent() {
-        return opponent;
-    }
-
-    public Label getY_win() {
-        return y_win;
-    }
-
-    public Label getY_lose() {
-        return y_lose;
-    }
-
-    public Label getO_win() {
-        return o_win;
-    }
-
-    public Label getO_lose() {
-        return o_lose;
-    }
-
-    public Label getNo_previous() {
-        return no_previous;
-    }
 }
