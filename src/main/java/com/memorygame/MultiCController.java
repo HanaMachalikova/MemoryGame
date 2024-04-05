@@ -48,7 +48,7 @@ public class MultiCController {
     private Button next_level;
 
     @FXML
-    private AnchorPane no_previous;
+    private Label no_previous;
 
     @FXML
     private Label o_lose;
@@ -118,13 +118,6 @@ public class MultiCController {
     @FXML
     void start(ActionEvent event) throws InterruptedException {
         cs.setNext_level(next_level);
-        cs.setO_lose(o_lose);
-        cs.setO_win(o_win);
-        cs.setOpponent(opponent);
-        cs.setY_lose(y_lose);
-        cs.setY_win(y_win);
-        cs.setYou(you);
-        cs.setResult(result);
         sc_number = 0;
         measuredTime = 0;
         start.setVisible(false);
@@ -186,6 +179,20 @@ public class MultiCController {
                         finished.setText("You finished!");
                         result.setVisible(true);
                         result.setText("Waiting for your opponent");
+                        while (true) {
+                            if (cs.isReady()) {
+                                if (!cs.isOpponent() && !cs.isYou()) {
+                                    result.setText("You both failed!");
+
+                                }else if (!cs.isOpponent()) {
+                                    result.setText("You won!");
+                                }else if (!cs.isYou()) {
+                                    result.setText("You lost!");
+                                } else {
+                                    result.setText("It's a draw!");
+                                }
+                            }
+                        }
                     }
                     if (lvl == 6) {
                         key.setVisible(false);

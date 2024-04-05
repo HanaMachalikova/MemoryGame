@@ -37,9 +37,9 @@
                                 <Font size="15.0" />
                             </font>
                         </Label>
-                        <Pane fx:id="pane" layoutX="4.0" layoutY="65.0" prefHeight="363.0" prefWidth="472.0">
+                        <Pane fx:id="pane" layoutX="21.0" layoutY="73.0" prefHeight="363.0" prefWidth="484.0">
                             <children>
-                                <Button fx:id="start" layoutX="202.0" layoutY="147.0" mnemonicParsing="false" onAction="#start" text="Start" textFill="#b70303">
+                                <Button fx:id="start" layoutX="209.0" layoutY="147.0" mnemonicParsing="false" onAction="#start" text="Start">
                                     <font>
                                         <Font size="16.0" />
                                     </font>
@@ -89,9 +89,9 @@
                         </Label>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="no_previous" minHeight="0.0" minWidth="0.0" prefHeight="489.0" prefWidth="271.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="489.0" prefWidth="271.0">
                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-7.0" layoutY="124.0" prefHeight="56.0" prefWidth="213.0" text="No previous game">
+                        <Label fx:id="no_previous" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="124.0" prefHeight="56.0" prefWidth="237.0" text="No previous game">
                             <font>
                                 <Font size="14.0" />
                             </font>
