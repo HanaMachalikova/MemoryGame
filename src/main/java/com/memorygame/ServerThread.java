@@ -39,20 +39,22 @@ public class ServerThread extends Thread {
     ;
 
     public void run() {
-        System.out.println(role);
-        switch (role) {
-            case "server":
-                try {
-                    server(sport);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                break;
+        while (running) {
+            System.out.println(role);
+            switch (role) {
+                case "server":
+                    try {
+                        server(sport);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
 
-            case "client":
-                client(cport);
+                case "client":
+                    client(cport);
 
-                break;
+                    break;
+            }
         }
     }
 
@@ -111,13 +113,13 @@ public class ServerThread extends Thread {
                     System.out.println("me: " + rm.isFailed());
                     System.out.println("opponent: " + client[0]);
                     if (rm.isFailed() && client[0].equals("f")) {
-                        gameResult("You both failed!", false, false, String.valueOf(rm.getTime()), client[1]);
-                    } else if (rm.isFailed() || (rm.getTime() > Integer.valueOf(client[1]))) {
-                        gameResult("You won!", true, false, String.valueOf(rm.getTime()), client[1]);
-                    } else if (client[0].equals("f") || (rm.getTime() < Integer.valueOf(client[1]))) {
-                        gameResult("You lost!", false, true, String.valueOf(rm.getTime()), client[1]);
+                        gameResult("You both failed!", true, true, String.valueOf(rm.getTime()), client[1]);
+                    } else if (rm.isFailed() || (rm.getTime() < Integer.valueOf(client[1]))) {
+                        gameResult("You lost!", true, false, String.valueOf(rm.getTime()), client[1]);
+                    } else if (client[0].equals("f") || (rm.getTime() > Integer.valueOf(client[1]))) {
+                        gameResult("You won!", false, true, String.valueOf(rm.getTime()), client[1]);
                     } else if (rm.getTime() == Integer.valueOf(client[1])) {
-                        gameResult("It's a draw!", true, true, String.valueOf(rm.getTime()), client[1]);
+                        gameResult("It's a draw!", false, false, String.valueOf(rm.getTime()), client[1]);
                     }
                     es.setReady(true);
                     if (msgClient.equalsIgnoreCase("BYE")) {
@@ -137,8 +139,15 @@ public class ServerThread extends Thread {
                 outputStreamWriter.close();
                 bufferedReader.close();
                 bufferedWriter.close();
+                running = false;
             } catch (IOException e) {
-                e.printStackTrace();
+                socket.close();
+                inputStreamReader.close();
+                outputStreamWriter.close();
+                bufferedReader.close();
+                bufferedWriter.close();
+                System.out.println("Chyba, vše ukončeno");
+                running = false;
             }
         }
     }
@@ -193,13 +202,13 @@ public class ServerThread extends Thread {
                 System.out.println("me: " + rm.isFailed());
                 System.out.println("opponent: " + server[0]);
                 if (rm.isFailed() && server[0].equals("f")) {
-                    gameResult("You both failed!", false, false, String.valueOf(rm.getTime()), server[1]);
-                } else if (rm.isFailed() || (rm.getTime() > Integer.valueOf(server[1]))) {
-                    gameResult("You lost!", false, true, String.valueOf(rm.getTime()), server[1]);
-                } else if (server[0].equals("f") || (rm.getTime() < Integer.valueOf(server[1]))) {
-                    gameResult("You won!", true, false, String.valueOf(rm.getTime()), server[1]);
+                    gameResult("You both failed!", true, true, String.valueOf(rm.getTime()), server[1]);
+                } else if (rm.isFailed() || (rm.getTime() < Integer.valueOf(server[1]))) {
+                    gameResult("You lost!", true, false, String.valueOf(rm.getTime()), server[1]);
+                } else if (server[0].equals("f") || (rm.getTime() > Integer.valueOf(server[1]))) {
+                    gameResult("You won!", false, true, String.valueOf(rm.getTime()), server[1]);
                 } else if (rm.getTime() == Integer.valueOf(server[1])) {
-                    gameResult("It's a draw!", true, true, String.valueOf(rm.getTime()), server[1]);
+                    gameResult("It's a draw!", false, false, String.valueOf(rm.getTime()), server[1]);
                 }
                 level++;
                 if (msgFromClient.equalsIgnoreCase("BYE"))
@@ -218,6 +227,7 @@ public class ServerThread extends Thread {
             es.getInvalid2().setVisible(true);
             es.getCode_field().setText("");
         } finally {
+            running = false;
             try {
                 if (socket != null)
                     socket.close();
@@ -248,12 +258,12 @@ public class ServerThread extends Thread {
             es.getY_lose().setVisible(false);
             es.getO_lose().setVisible(false);
             es.getResult().setText(result);
-            if (you) {
+            if (!you) {
                 es.getY_win().setVisible(true);
             } else {
                 es.getY_lose().setVisible(true);
             }
-            if (opponent) {
+            if (!opponent) {
                 es.getO_win().setVisible(true);
             } else {
                 es.getO_lose().setVisible(true);
@@ -268,12 +278,10 @@ public class ServerThread extends Thread {
 
     public void finalResult(int you, int opponent) {
         Platform.runLater(() -> {
-            es.getFinished().setVisible(false);
-            es.next_level.setVisible(false);
-            es.getGame_over().setVisible(true);
             es.getGame_over().setText("Game finished");
+            es.next_level.setVisible(false);
             if (you == opponent) {
-                es.getResult().setText("Whole game it's a draw!");
+                es.getResult().setText("It's a draw!");
             } else if (you > opponent) {
                 es.getResult().setText("You won the whole game!");
             } else {

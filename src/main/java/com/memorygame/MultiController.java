@@ -3,6 +3,7 @@ package com.memorygame;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,8 +15,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MultiController {
+public class MultiController implements Initializable {
     @FXML
     private Button back;
 
@@ -112,20 +115,8 @@ public class MultiController {
 
     @FXML
     void start(ActionEvent event) throws InterruptedException {
-        es.setNext_level(next_level);
-        es.setO_lose(o_lose);
-        es.setO_win(o_win);
-        es.setOpponent(opponent);
-        es.setY_lose(y_lose);
-        es.setY_win(y_win);
-        es.setYou(you);
-        es.setResult(result);
-        es.setNo_previous(no_previous);
-        es.setTime(time_number);
-        es.setNew_game(new_game);
-        es.setGame_over(game_over);
-        es.setFinished(finished);
         lvl = 1;
+        level_number.setText("1");
         sc_number = 0;
         measuredTime = 0;
         start.setVisible(false);
@@ -133,7 +124,6 @@ public class MultiController {
         //System.out.println(pane.getLayoutY());
         //System.out.println(startTime + " ms");
         startGame();
-        level_number.setText(String.valueOf(1));
 
     }
 
@@ -157,7 +147,6 @@ public class MultiController {
 
     @FXML
     public void typed_key(KeyEvent event) throws InterruptedException {
-
         letterOrder++;
         answer += event.getText();
         if ((letterOrder == lvl) && answer.equals(letters)) {
@@ -171,16 +160,17 @@ public class MultiController {
                 y_win.setVisible(false);
                 o_lose.setVisible(false);
                 o_win.setVisible(false);
+                time_number.setVisible(true);
+                time_number.setText(measuredTime + " ms");
+                time.setVisible(true);
                 rm = ResultMultiton.getInstance(String.valueOf(lvl));
                 msg = "p;" + (measuredTime);
                 mm = MsgMultiton.getInstance(String.valueOf(lvl));
                 mm.setMessage(msg);
                 rm.setFailed(false);
                 rm.setTime(measuredTime);
-                lvl++;
                 answerOrder = 0;
-                time.setVisible(true);
-                time_number.setText(measuredTime + " ms");
+                score_number.setText(String.valueOf(sc_number));
                 if (lvl <= 3) {
                     finished.setVisible(true);
                     finished.setText("You finished!");
@@ -195,9 +185,10 @@ public class MultiController {
             } else {
                 startGame();
             }
-        } else if (!answer.equals(letters.substring(0, answer.length()))) {
+        } else if (!answer.equals(letters.substring(0, letterOrder))) {
             key.setVisible(false);
             time.setVisible(true);
+            time_number.setVisible(true);
             time_number.setText("failed");
             rm = ResultMultiton.getInstance(String.valueOf(lvl));
             rm.setTime(0);
@@ -207,7 +198,9 @@ public class MultiController {
             mm.setMessage(msg);
             rm = ResultMultiton.getInstance(String.valueOf(lvl));
             rm.setFailed(true);
-            lvl++;
+            letterOrder = 0;
+
+            level_number.setText(String.valueOf(lvl));
             if (lvl == 4) {
                 game_over.setVisible(true);
                 game_over.setText("Game finished");
@@ -230,20 +223,21 @@ public class MultiController {
         result.setVisible(false);
         new_game.setVisible(false);
         finished.setVisible(false);
-        lvl = 1;
+        level_number.setText("");
     }
 
     @FXML
     void nextLevel(ActionEvent event) throws InterruptedException {
         textField.requestFocus();
-        startGame();
-        level_number.setText(Integer.toString(lvl));
+        lvl++;
         finished.setVisible(false);
         result.setVisible(false);
         game_over.setVisible(false);
         next_level.setVisible(false);
         time.setVisible(false);
         time_number.setVisible(false);
+        level_number.setText(String.valueOf(lvl));
+        startGame();
 
     }
 
@@ -275,6 +269,24 @@ public class MultiController {
         //coordinateY = (int) ((Math.random() * (pane.getHeight() + 1)) + pane.getLayoutY());
         coordinateX = (int) ((Math.random() * pane.getWidth() + 1));
         coordinateY = (int) ((Math.random() * pane.getHeight() + 1));
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        es.setNext_level(next_level);
+        es.setO_lose(o_lose);
+        es.setO_win(o_win);
+        es.setOpponent(opponent);
+        es.setY_lose(y_lose);
+        es.setY_win(y_win);
+        es.setYou(you);
+        es.setResult(result);
+        es.setNo_previous(no_previous);
+        es.setTime(time_number);
+        es.setNew_game(new_game);
+        es.setGame_over(game_over);
+        es.setFinished(finished);
 
     }
 }
