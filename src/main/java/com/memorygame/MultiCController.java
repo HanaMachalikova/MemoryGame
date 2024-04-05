@@ -118,6 +118,7 @@ public class MultiCController {
     @FXML
     void start(ActionEvent event) throws InterruptedException {
         cs.setNext_level(next_level);
+        cs.setResult(result);
         sc_number = 0;
         measuredTime = 0;
         start.setVisible(false);
@@ -179,11 +180,10 @@ public class MultiCController {
                         finished.setText("You finished!");
                         result.setVisible(true);
                         result.setText("Waiting for your opponent");
-                        while (true) {
-                            if (cs.isReady()) {
+                            /*if (cs.isReady()) {
+                                opponent.setText(String.valueOf(cs.getTime()));
                                 if (!cs.isOpponent() && !cs.isYou()) {
                                     result.setText("You both failed!");
-
                                 }else if (!cs.isOpponent()) {
                                     result.setText("You won!");
                                 }else if (!cs.isYou()) {
@@ -191,8 +191,7 @@ public class MultiCController {
                                 } else {
                                     result.setText("It's a draw!");
                                 }
-                            }
-                        }
+                            }*/
                     }
                     if (lvl == 6) {
                         key.setVisible(false);
@@ -234,7 +233,8 @@ public class MultiCController {
     }
 
     @FXML
-    void nextLevel(ActionEvent event) {
+    void nextLevel(ActionEvent event) throws InterruptedException {
+        startGame();
         level_number.setText(Integer.toString(lvl));
         finished.setVisible(false);
         result.setVisible(false);

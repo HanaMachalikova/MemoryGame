@@ -1,5 +1,6 @@
 package com.memorygame;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 
 import java.io.*;
@@ -127,25 +128,21 @@ public class ServerThread extends Thread {
                     if (rm.isFailed() && client[0].equals("f")) {
                         cs.setOpponent(false);
                         cs.setYou(false);
-                    } else if (rm.isFailed()) {
+                        gameResult("You both failed!");
+                    } else if (rm.isFailed() || (rm.getTime() < Integer.valueOf(client[1]))) {
                         cs.setOpponent(true);
                         cs.setYou(false);
                         cs.setTime(Integer.valueOf(client[1]));
-                    } else if (client[0].equals("f")) {
+                        gameResult("You lost!");
+                    } else if (client[0].equals("f") || (rm.getTime() > Integer.valueOf(client[1]))) {
                         cs.setOpponent(false);
                         cs.setYou(true);
-                    } else if (rm.getTime() > Integer.valueOf(client[1])) {
-                        cs.setOpponent(false);
-                        cs.setYou(true);
-                        cs.setTime(Integer.valueOf(client[1]));
-                    } else if (rm.getTime() < Integer.valueOf(client[1])) {
-                        cs.setOpponent(true);
-                        cs.setYou(false);
-                        cs.setTime(Integer.valueOf(client[1]));
+                        gameResult("You won!");
                     } else if (rm.getTime() == Integer.valueOf(client[1])) {
                         cs.setOpponent(true);
                         cs.setYou(true);
                         cs.setTime(Integer.valueOf(client[1]));
+                        gameResult("It's a draw!");
                     }
                     cs.setReady(true);
                     if (msgClient.equalsIgnoreCase("BYE")) {
@@ -225,25 +222,21 @@ public class ServerThread extends Thread {
                 if (rm.isFailed() && server[0].equals("f")) {
                     cs.setOpponent(false);
                     cs.setYou(false);
-                } else if (rm.isFailed()) {
+                    gameResult("You both failed!");
+                } else if (rm.isFailed() || (rm.getTime() < Integer.valueOf(server[1]))) {
                     cs.setOpponent(true);
                     cs.setYou(false);
                     cs.setTime(Integer.valueOf(server[1]));
-                } else if (server[0].equals("f")) {
+                    gameResult("You lost!");
+                } else if (server[0].equals("f") || (rm.getTime() > Integer.valueOf(server[1]))) {
                     cs.setOpponent(false);
                     cs.setYou(true);
-                } else if (rm.getTime() > Integer.valueOf(server[1])) {
-                    cs.setOpponent(false);
-                    cs.setYou(true);
-                    cs.setTime(Integer.valueOf(server[1]));
-                } else if (rm.getTime() < Integer.valueOf(server[1])) {
-                    cs.setOpponent(true);
-                    cs.setYou(false);
-                    cs.setTime(Integer.valueOf(server[1]));
+                    gameResult("You won!");
                 } else if (rm.getTime() == Integer.valueOf(server[1])) {
                     cs.setOpponent(true);
                     cs.setYou(true);
                     cs.setTime(Integer.valueOf(server[1]));
+                    gameResult("It's a draw!");
                 }
                 cs.setReady(true);
                 level++;
@@ -269,5 +262,11 @@ public class ServerThread extends Thread {
             }
 
         }
+    }
+
+    public void gameResult (String result) {
+        Platform.runLater(() -> {
+            cs.getResult().setText(result);
+        });
     }
 }

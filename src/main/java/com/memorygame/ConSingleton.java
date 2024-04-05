@@ -37,6 +37,14 @@ public class ConSingleton {
         this.opponent = opponent;
     }
 
+    public Label getResult() {
+        return result;
+    }
+
+    public void setResult(Label result) {
+        this.result = result;
+    }
+
     public long getTime() {
         return time;
     }
