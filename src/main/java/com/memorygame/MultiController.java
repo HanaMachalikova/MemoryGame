@@ -68,13 +68,7 @@ public class MultiController implements Initializable {
     private Label result;
 
     @FXML
-    private Label score;
-
-    @FXML
     private Label score_number;
-
-    @FXML
-    private SplitPane splitPane;
 
     @FXML
     private Button start;
@@ -114,20 +108,17 @@ public class MultiController implements Initializable {
 
 
     @FXML
-    void start(ActionEvent event) throws InterruptedException {
+    void start(ActionEvent event){
         lvl = 1;
         level_number.setText("1");
         sc_number = 0;
         measuredTime = 0;
         start.setVisible(false);
-        //System.out.println(pane.getLayoutX());
-        //System.out.println(pane.getLayoutY());
-        //System.out.println(startTime + " ms");
         startGame();
 
     }
 
-    void startGame() throws InterruptedException {
+    void startGame(){
         letters = "";
         answer = "";
         startTime = System.currentTimeMillis();
@@ -265,10 +256,8 @@ public class MultiController implements Initializable {
     }
 
     void propertiesOfButton() {
-        //coordinateX = (int) ((Math.random() * (pane.getWidth() + 1)) + pane.getLayoutX());
-        //coordinateY = (int) ((Math.random() * (pane.getHeight() + 1)) + pane.getLayoutY());
-        coordinateX = (int) ((Math.random() * pane.getWidth() + 1));
-        coordinateY = (int) ((Math.random() * pane.getHeight() + 1));
+        coordinateX = (int) (Math.random() * (pane.getWidth() - pane.getLayoutY() - key.getWidth())+ 1 + pane.getLayoutY());
+        coordinateY = (int) (Math.random() * (pane.getHeight() - pane.getLayoutX() - key.getHeight())+ 1 + pane.getLayoutX());
 
     }
 
