@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="292.0" prefWidth="442.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.memorygame.SecondController">
    <children>
       <Label fx:id="second_text" layoutX="102.0" layoutY="39.0" prefHeight="30.0" prefWidth="239.0" text="You are the second player">

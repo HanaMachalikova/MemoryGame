@@ -24,11 +24,21 @@ public class HomeController {
     @FXML
     private Button how_to_play;
 
+
     @FXML
     private Button new_game;
 
     @FXML
-    void how_to_play(ActionEvent event) {
+    void how_to_play(ActionEvent event) throws IOException {
+        Node source = (Node)  event.getSource();
+        Stage primarystage  = (Stage) source.getScene().getWindow();
+        primarystage.close();
+        FXMLLoader fxmlLoader = new FXMLLoader(MemoryGame.class.getResource("Tutorial.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Tutorial");
+        stage.setScene(scene);
+        stage.show();
 
     }
 

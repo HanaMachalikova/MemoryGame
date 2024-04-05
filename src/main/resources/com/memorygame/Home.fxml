@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.memorygame.HomeController">
     <children>
-        <Label fx:id="welcome_label" alignment="CENTER" contentDisplay="CENTER" layoutX="79.0" layoutY="68.0" prefHeight="72.0" prefWidth="442.0" text="Welcome in the app">
+        <Label fx:id="welcome_label" alignment="CENTER" contentDisplay="CENTER" layoutX="61.0" layoutY="66.0" prefHeight="72.0" prefWidth="477.0" text="Welcome in the Typing game">
             <font>
                 <Font size="36.0" />
             </font>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.memorygame.TutController">
+   <children>
+      <Label layoutX="261.0" layoutY="36.0" text="Tutorial">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Text fx:id="text" layoutX="51.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome in the Typing game!" wrappingWidth="498.13677978515625">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Button layoutX="261.0" layoutY="349.0" mnemonicParsing="false" onAction="#go_back" text="Back">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Text fx:id="text1" layoutX="51.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If you're here alone, don't worry. There is mode also only for one player. Just got to New game and then Singleplayer and you're free to train and play. After pressing start a letter will appear. Just press the same letter on your keyboard and you have your first point. If you make mistake, don't worry. You can always try again. " wrappingWidth="498.13677978515625">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Text fx:id="text11" layoutX="51.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If here are two of you, we've got mode for you too. Start is the same as with single person just instead of pressing Singleplayer choose Multuplayer. Then decide how will be the first player and who the second one (don't worry, it does't mater at all). Then just press your button and follow instructions. When you get to the game board just press the Start you continue like the single player." wrappingWidth="498.13677978515625">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Text layoutX="50.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enjoy!" wrappingWidth="422.936767578125">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

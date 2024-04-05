@@ -276,10 +276,10 @@ public class ServerThread extends Thread {
             } else {
                 cs.getO_lose().setVisible(true);
             }
-            cs.getYou().setText(yTime);
-            cs.getOpponent().setText(oTime);
+            cs.getYou().setText(yTime + " ms");
+            cs.getOpponent().setText(oTime + " ms");
             cs.getNo_previous().setVisible(false);
-            cs.getTime().setText(yTime);
+            cs.getTime().setText(yTime + " ms");
             System.out.println("You: " + you);
             System.out.println("Opp: " + opponent);
         });
