@@ -136,7 +136,7 @@ public class MultiController implements Initializable {
             letterOrder = 0;
             sc_number++;
             answerOrder++;
-            if (answerOrder == 5) {
+            if (answerOrder == 15) {
                 measuredTime = System.currentTimeMillis() - startTime;
                 measuredTime += 10;
                 y_lose.setVisible(false);
@@ -144,7 +144,7 @@ public class MultiController implements Initializable {
                 o_lose.setVisible(false);
                 o_win.setVisible(false);
                 time_number.setVisible(true);
-                time_number.setText((measuredTime / 1000) + "," + (measuredTime % 1000) + " s");
+                time_number.setText((measuredTime / 100) + "," + (measuredTime % 100) + " s");
                 time.setVisible(true);
                 rm = ResultMultiton.getInstance(String.valueOf(lvl));
                 msg = "p;" + (measuredTime);
@@ -154,12 +154,12 @@ public class MultiController implements Initializable {
                 rm.setTime(measuredTime);
                 answerOrder = 0;
                 score_number.setText(String.valueOf(sc_number));
-                if (lvl <= 3) {
+                if (lvl <= 63) {
                     finished.setVisible(true);
                     finished.setText("You finished!");
                     result.setVisible(true);
                     result.setText("Waiting for your opponent");
-                }else if (lvl == 4) {
+                }else if (lvl == 6) {
                     game_over.setVisible(true);
                     game_over.setText("Game finished");
                     lvl = 1;

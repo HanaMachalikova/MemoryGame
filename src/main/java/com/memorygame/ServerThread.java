@@ -128,7 +128,7 @@ public class ServerThread extends Thread {
 
                     }
                     level++;
-                    if (level == 3) {
+                    if (level ==5) {
                         finalResult(y, o);
                         y = 0;
                         o = 0;
@@ -205,7 +205,7 @@ public class ServerThread extends Thread {
                     gameResult("It's a draw!", false, false, String.valueOf(rm.getTime()), server[1]);
                 }
                 level++;
-                if (level == 3) {
+                if (level == 5) {
                     finalResult(y, o);
                     y = 0;
                     o = 0;
